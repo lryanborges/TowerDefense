@@ -3,32 +3,61 @@
 #include "Enemy.h"
 #include "Tower.h"
 #include "Rain.h"
+#include "DirectionPoint.h"
+#include "Ghost.h"
 
 Scene* TowerDefense::scene = nullptr;
 
 void TowerDefense::Init() {
 
-    TileSet* tilesetCenoura = new TileSet("Resources/cenoura.png", 112, 112, 8, 24);
-    TileSet* tilesetBatata = new TileSet("Resources/batata.png", 112, 112, 8, 24);
-    TileSet* tilesetCebola = new TileSet("Resources/cebola.png", 112, 112, 8, 24);
-    TileSet* tilesetTomate = new TileSet("Resources/tomate.png", 112, 112, 8, 24);
-    TileSet* tilesetBrocolis = new TileSet("Resources/brocolis.png", 112, 112, 8, 24);
-    TileSet* tilesetCheiroVerde = new TileSet("Resources/cheiroverde.png", 112, 112, 8, 24);
-    TileSet* tilesetMilho = new TileSet("Resources/milho.png", 112, 112, 8, 24);
-    TileSet* tilesetAlface = new TileSet("Resources/alface.png", 112, 112, 8, 24);
-    TileSet* tilesetCouveFlor = new TileSet("Resources/couveflor.png", 112, 112, 8, 24);
+    TileSet* tilesetCenoura = new TileSet("Resources/cenoura.png", 40, 40, 8, 24);
+    TileSet* tilesetBatata = new TileSet("Resources/batata.png", 40, 40, 8, 48);
+    TileSet* tilesetCebola = new TileSet("Resources/cebola.png", 40, 40, 8, 24);
+    TileSet* tilesetNabo = new TileSet("Resources/nabo.png", 40, 40, 8, 24);
+    TileSet* tilesetBrocolis = new TileSet("Resources/brocolis.png", 40, 40, 8, 24);
+    TileSet* tilesetCheiroVerde = new TileSet("Resources/cheiroverde.png", 40, 40, 8, 24);
+    TileSet* tilesetMilho = new TileSet("Resources/milho.png", 40, 40, 8, 24);
+    TileSet* tilesetAlface = new TileSet("Resources/alface.png", 40, 40, 8, 24);
+    TileSet* tilesetCouveFlor = new TileSet("Resources/couveflor.png", 40, 40, 8, 24);
 
-    rain = new TileSet("Resources/rain.png", 8, 8, 3, 3);
+    TileSet* ghost = new TileSet("Resources/ghost.png", 32, 32, 10, 10);
 
+    rain = new TileSet("Resources/rain.png", 12, 12, 3, 3);
     ground = new Sprite("Resources/ground.png");
+    floor = new Sprite("Resources/floor.png");
 
     scene = new Scene();
+
+    Ghost* fant = new Ghost(ghost);
+    scene->Add(fant, STATIC);
+    fant->MoveTo(200, 200);
+
+    // ------------------------------------------------------------------------------------
+    //                DEFINIÇÃO DOS DIRECTIONS POINTS PRA ESSA FASE
+    // ------------------------------------------------------------------------------------
+
+    DirectionPoint* point1 = new DirectionPoint(UP);
+    point1->MoveTo(window->CenterX() - 360, window->CenterY() + 20);    // -395 é bem no meio (do primeiro)
+    scene->Add(point1, STATIC);
+
+    DirectionPoint* point2 = new DirectionPoint(RIGHT);
+    point2->MoveTo(window->CenterX() - 393, window->CenterY() - 150);
+    scene->Add(point2, STATIC);
+
+    DirectionPoint* point3 = new DirectionPoint(DOWN);
+    point3->MoveTo(window->CenterX() - 220, window->CenterY() - 115);
+    scene->Add(point3, STATIC);
+
+    // ------------------------------------------------------------------------------------
 
     Rain* chuva = new Rain(rain);
     scene->Add(chuva, STATIC);
 
-    Enemy* enemy = new Enemy(tilesetBatata, BATATA);
-    scene->Add(enemy, MOVING);
+    /*Enemy* enemy = new Enemy(tilesetBatata, BATATA);
+    scene->Add(enemy, MOVING);*/
+
+    Enemy* cenoura = new Enemy(tilesetBatata, BATATA);
+    scene->Add(cenoura, MOVING);
 
     Tower* tower = new Tower();
     scene->Add(tower, MOVING);
@@ -42,18 +71,20 @@ void TowerDefense::Init() {
 void TowerDefense::Finalize() {
     delete rain;
     delete ground;
+    delete floor;
     delete scene;
 }
 
 void TowerDefense::Update() {
-
-    scene->DrawBBox();
     scene->Update();
     scene->CollisionDetection();
+
+    scene->DrawBBox();
 }
 
 void TowerDefense::Draw() {
     ground->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
+    floor->Draw(window->CenterX(), window->CenterY(), Layer::LOWER);
     scene->Draw();
 }
 

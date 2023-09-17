@@ -5,11 +5,20 @@
 #include "Resources.h"
 #include "Sprite.h"
 #include "TileSet.h"
+#include "Animation.h"
+
+enum ObjectType {
+	ENEMY,
+	TOWER,
+	DIRECTIONPOINT
+};
 
 class TowerDefense : public Game {
 private:
 	Sprite* ground;
+	Sprite* floor;
 	TileSet* rain;
+	Animation* rainAnimation;
 
 public:
 	static Scene* scene;

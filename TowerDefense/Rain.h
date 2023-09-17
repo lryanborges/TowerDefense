@@ -22,5 +22,5 @@ public:
 };
 
 inline void Rain::Draw() {
-	animation->Draw(x, y, Layer::FRONT);
+	animation->Draw(x, y, z);
 }
