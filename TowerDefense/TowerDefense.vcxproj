@@ -179,6 +179,7 @@
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Rain.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sound.cpp" />
@@ -186,6 +187,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Tower.cpp" />
     <ClCompile Include="TowerDefense.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -201,6 +203,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Rain.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Scene.h" />
@@ -209,6 +212,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Tower.h" />
     <ClInclude Include="TowerDefense.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Window.h" />

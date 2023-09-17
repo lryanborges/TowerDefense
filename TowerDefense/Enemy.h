@@ -28,6 +28,7 @@ private:
 	Animation* animation;
 	uint state = WALKING;
 	uint type = CENOURA;	// cenoura é o tipo padrão
+
 public:
 
 	Enemy(TileSet* tset, uint enemyType);

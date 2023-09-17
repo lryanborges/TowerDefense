@@ -5,7 +5,6 @@ Enemy::Enemy(TileSet* tset, uint enemyType = 0) {
 	tileset = tset;
 	type = enemyType;
 
-
 	int walkSize = 8;
 	int atackSize = 8;
 	int deathSize = 8;
@@ -17,6 +16,8 @@ Enemy::Enemy(TileSet* tset, uint enemyType = 0) {
 
 	if (type == BATATA) {
 		walkSize = 6;
+
+		BBox(new Rect(-44, -8, 26, 55));
 	}
 	if (type == COUVEFLOR) {
 		walkSize = 6;
@@ -42,8 +43,10 @@ Enemy::~Enemy() {
 }
 
 void Enemy::Update() {
-	animation->Select(state);
-	animation->NextFrame();
+
+	if (animation->Frame() == 15) {
+		state = WALKING;
+	}
 
 	if (window->KeyPress('R')) {
 		state = ATACK;
@@ -55,7 +58,16 @@ void Enemy::Update() {
 		state = WALKING;
 	}
 
-	Translate(0 * gameTime, 0);
+	if (state == WALKING) {
+		Translate(100 * gameTime, 0);
+	}
+
+	if (!(animation->Frame() == 23)) {
+		animation->NextFrame();
+	}
+
+	animation->Select(state);
+
 }
 
 void Enemy::OnCollision() {

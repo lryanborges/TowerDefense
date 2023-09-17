@@ -1,11 +1,12 @@
 #include "TowerDefense.h"
 #include "Engine.h"
 #include "Enemy.h"
+#include "Tower.h"
+#include "Rain.h"
 
 Scene* TowerDefense::scene = nullptr;
 
 void TowerDefense::Init() {
-    scene = new Scene();
 
     TileSet* tilesetCenoura = new TileSet("Resources/cenoura.png", 112, 112, 8, 24);
     TileSet* tilesetBatata = new TileSet("Resources/batata.png", 112, 112, 8, 24);
@@ -17,8 +18,20 @@ void TowerDefense::Init() {
     TileSet* tilesetAlface = new TileSet("Resources/alface.png", 112, 112, 8, 24);
     TileSet* tilesetCouveFlor = new TileSet("Resources/couveflor.png", 112, 112, 8, 24);
 
-    Enemy* enemy = new Enemy(tilesetCouveFlor, COUVEFLOR);
+    rain = new TileSet("Resources/rain.png", 8, 8, 3, 3);
+
+    ground = new Sprite("Resources/ground.png");
+
+    scene = new Scene();
+
+    Rain* chuva = new Rain(rain);
+    scene->Add(chuva, STATIC);
+
+    Enemy* enemy = new Enemy(tilesetBatata, BATATA);
     scene->Add(enemy, MOVING);
+
+    Tower* tower = new Tower();
+    scene->Add(tower, MOVING);
 
     /*Enemy* brocolis = new Enemy(tilesetBrocolis, BROCOLIS);
     scene->Add(brocolis, MOVING);
@@ -27,15 +40,20 @@ void TowerDefense::Init() {
 }
 
 void TowerDefense::Finalize() {
+    delete rain;
+    delete ground;
     delete scene;
 }
 
 void TowerDefense::Update() {
+
+    scene->DrawBBox();
     scene->Update();
     scene->CollisionDetection();
 }
 
 void TowerDefense::Draw() {
+    ground->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
     scene->Draw();
 }
 
