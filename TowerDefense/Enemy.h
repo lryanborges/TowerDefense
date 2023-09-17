@@ -5,18 +5,32 @@
 #include "Animation.h"
 
 enum EnemyState {
-	NORMAL,
-	ATACK
+	WALKING,
+	ATACK,
+	DEATH
+};
+
+enum EnemyType {
+	CENOURA,
+	BATATA,
+	CEBOLA,
+	TOMATE,
+	BROCOLIS,
+	CHEIROVERDE,
+	MILHO,
+	ALFACE,
+	COUVEFLOR
 };
 
 class Enemy : public Object {
 private:
 	TileSet* tileset;
 	Animation* animation;
-	uint state = NORMAL;
+	uint state = WALKING;
+	uint type = CENOURA;	// cenoura é o tipo padrão
 public:
 
-	Enemy();
+	Enemy(TileSet* tset, uint enemyType);
 	~Enemy();
 
 	void Update();

@@ -7,8 +7,22 @@ Scene* TowerDefense::scene = nullptr;
 void TowerDefense::Init() {
     scene = new Scene();
 
-    Enemy* enemy = new Enemy();
+    TileSet* tilesetCenoura = new TileSet("Resources/cenoura.png", 112, 112, 8, 24);
+    TileSet* tilesetBatata = new TileSet("Resources/batata.png", 112, 112, 8, 24);
+    TileSet* tilesetCebola = new TileSet("Resources/cebola.png", 112, 112, 8, 24);
+    TileSet* tilesetTomate = new TileSet("Resources/tomate.png", 112, 112, 8, 24);
+    TileSet* tilesetBrocolis = new TileSet("Resources/brocolis.png", 112, 112, 8, 24);
+    TileSet* tilesetCheiroVerde = new TileSet("Resources/cheiroverde.png", 112, 112, 8, 24);
+    TileSet* tilesetMilho = new TileSet("Resources/milho.png", 112, 112, 8, 24);
+    TileSet* tilesetAlface = new TileSet("Resources/alface.png", 112, 112, 8, 24);
+    TileSet* tilesetCouveFlor = new TileSet("Resources/couveflor.png", 112, 112, 8, 24);
+
+    Enemy* enemy = new Enemy(tilesetCouveFlor, COUVEFLOR);
     scene->Add(enemy, MOVING);
+
+    /*Enemy* brocolis = new Enemy(tilesetBrocolis, BROCOLIS);
+    scene->Add(brocolis, MOVING);
+    brocolis->MoveTo(window->CenterX(), window->CenterY());*/
 
 }
 
