@@ -174,12 +174,12 @@ void Enemy::OnCollision(Object* obj) {
 		}
 		if (point->direction == RIGHT) {
 			direction = GOINGRIGHT;
-		}
+		}	
 	}
 
-	if (obj->Type() == POWER) {
+	if (obj->Type() == POWERGREEN) {
 		life--;
 
-		TowerDefense::scene->Delete(obj, POWER);
+		TowerDefense::scene->Delete(obj, POWERGREEN);
 	}
 }

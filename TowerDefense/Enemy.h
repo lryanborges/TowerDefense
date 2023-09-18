@@ -41,7 +41,6 @@ private:
 	uint state = WALKING;
 	uint enemyType = CENOURA;	// cenoura é o tipo padrão
 	int vel;
-	int life;
 	int lastFrameDeath;
 	int lastFrameAtack;
 	TileSet* ghost;
@@ -50,6 +49,7 @@ private:
 	uint lastDirection = STOPPED;
 
 public:
+	int life;
 
 	Enemy(TileSet* tset, uint enType);
 	~Enemy();

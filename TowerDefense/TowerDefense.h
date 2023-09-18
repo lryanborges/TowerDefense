@@ -11,7 +11,11 @@ enum ObjectType {
 	ENEMY,
 	TOWER,
 	DIRECTIONPOINT,
-	POWER
+	POWERGREEN,
+	POWERYELLOW,
+	POWERRED,
+	POWERBLUE,
+	POWERPURPLE
 };
 
 class TowerDefense : public Game {

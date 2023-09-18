@@ -4,12 +4,18 @@
 #include "Animation.h"
 #include "TileSet.h"
 
+enum PowerState {
+	YELLOWNORMAL,
+	YELLOWEXPLOSION
+};
+
 class TowerPower : public Object {
 
 private:
 
 	TileSet* tileset;
 	Animation* animation;
+	uint powerState = YELLOWNORMAL;
 	int vel;
 	int dstX;
 	int dstY;
@@ -19,7 +25,7 @@ private:
 public:
 	static int cdr;
 
-	TowerPower(int posX, int posY, int toX, int toY);
+	TowerPower(int posX, int posY, int toX, int toY, uint twrType);
 	~TowerPower();
 
 	void Update();
