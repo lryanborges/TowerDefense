@@ -5,20 +5,21 @@
 #include "Rain.h"
 #include "DirectionPoint.h"
 #include "Ghost.h"
+#include "Grass.h"
 
 Scene* TowerDefense::scene = nullptr;
 
 void TowerDefense::Init() {
 
-    TileSet* tilesetCenoura = new TileSet("Resources/cenoura.png", 40, 40, 8, 24);
-    TileSet* tilesetBatata = new TileSet("Resources/batata.png", 40, 40, 8, 48);
-    TileSet* tilesetCebola = new TileSet("Resources/cebola.png", 40, 40, 8, 24);
-    TileSet* tilesetNabo = new TileSet("Resources/nabo.png", 40, 40, 8, 24);
-    TileSet* tilesetBrocolis = new TileSet("Resources/brocolis.png", 40, 40, 8, 24);
-    TileSet* tilesetCheiroVerde = new TileSet("Resources/cheiroverde.png", 40, 40, 8, 24);
-    TileSet* tilesetMilho = new TileSet("Resources/milho.png", 40, 40, 8, 24);
-    TileSet* tilesetAlface = new TileSet("Resources/alface.png", 40, 40, 8, 24);
-    TileSet* tilesetCouveFlor = new TileSet("Resources/couveflor.png", 40, 40, 8, 24);
+    TileSet* tilesetCenoura = new TileSet("Resources/cenoura.png", 40, 50, 8, 30);
+    TileSet* tilesetBatata = new TileSet("Resources/batata.png", 40, 50, 8, 30);
+    TileSet* tilesetCebola = new TileSet("Resources/cebola.png", 40, 50, 8, 30);
+    TileSet* tilesetNabo = new TileSet("Resources/nabo.png", 40, 50, 8, 30);
+    TileSet* tilesetBrocolis = new TileSet("Resources/brocolis.png", 40, 50, 8, 30);
+    TileSet* tilesetCheiroVerde = new TileSet("Resources/cheiroverde.png", 40, 50, 8, 30);
+    TileSet* tilesetMilho = new TileSet("Resources/milho.png", 40, 50, 8, 30);
+    TileSet* tilesetAlface = new TileSet("Resources/alface.png", 40, 50, 8, 30);
+    TileSet* tilesetCouveFlor = new TileSet("Resources/couveflor.png", 40, 50, 8, 30);
 
     TileSet* ghost = new TileSet("Resources/ghost.png", 32, 32, 10, 10);
 
@@ -27,6 +28,9 @@ void TowerDefense::Init() {
     floor = new Sprite("Resources/floor.png");
 
     scene = new Scene();
+
+    Grass* grass = new Grass(300, 300, 1);
+    scene->Add(grass, STATIC);
 
     Ghost* fant = new Ghost(ghost);
     scene->Add(fant, STATIC);
@@ -92,7 +96,7 @@ void TowerDefense::Init() {
     /*Enemy* enemy = new Enemy(tilesetBatata, BATATA);
     scene->Add(enemy, MOVING);*/
 
-    Enemy* cenoura = new Enemy(tilesetBatata, BATATA);
+    Enemy* cenoura = new Enemy(tilesetCouveFlor, COUVEFLOR);
     scene->Add(cenoura, MOVING);
 
     Tower* tower = new Tower();
@@ -112,9 +116,15 @@ void TowerDefense::Finalize() {
 }
 
 void TowerDefense::Update() {
+
+    if (window->KeyPress(VK_LBUTTON)) {
+        Tower* tw = new Tower();
+        tw->MoveTo(window->MouseX(), window->MouseY() - (tw->Height()) / 3);
+        scene->Add(tw, MOVING);
+    }
+
     scene->Update();
     scene->CollisionDetection();
-
     scene->DrawBBox();
 }
 

@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "Ghost.h"
 #include "TowerDefense.h"
+#include "Tower.h"
 
 Enemy::Enemy(TileSet* tset, uint enType = 0) {
 
@@ -8,6 +9,9 @@ Enemy::Enemy(TileSet* tset, uint enType = 0) {
 	enemyType = enType;
 
 	vel = 100;
+	life = 1;
+	lastFrameDeath = 23;
+	lastFrameAtack = 15;
 
 	ghost = new TileSet("Resources/ghost.png", 32, 32, 10, 10);
 
@@ -16,34 +20,35 @@ Enemy::Enemy(TileSet* tset, uint enType = 0) {
 	int deathSize = 8;
 
 	uint walking[8] = { 0, 1, 2, 3, 4, 5, 6, 7 };
-	uint bottomwalking[8] = { 8, 9, 10, 11, 12, 13, 14, 15 };
-	uint topwalking[8] = { 16, 17, 18, 19, 20, 21, 22, 23 };
-	uint inverted[8] = {47, 46, 45, 44, 43, 42, 41, 40};
-	uint atack[8] = { 24, 25, 26, 27, 28, 29, 30, 31 };
-	uint death[8] = { 32, 33, 34, 35, 36, 37, 38, 39 };
+	uint atack[8] = { 8, 9, 10, 11, 12, 13, 14, 15 };
+	uint death[8] = { 16, 17, 18, 19, 20, 21, 22, 23 };
+	uint inverted[8] = {31, 30, 29, 28, 27, 26, 25, 24 };
 
 	if (enemyType == BATATA) {
 		walkSize = 6;
+		life = 1;
 	}
 	if (enemyType == COUVEFLOR) {
 		walkSize = 6;
 		deathSize = 6;
+		lastFrameDeath = 21;
+		lastFrameAtack = 13;
 	}
 	if (enemyType == ALFACE) {
 		walkSize = 6;
 		atackSize = 6;
 		deathSize = 6;
+		lastFrameDeath = 21;
+		lastFrameAtack = 13;
 	}
 	
 	animation = new Animation(tileset, 0.15f, true);
 	animation->Add(WALKING, walking, walkSize);
-	animation->Add(TOPWALKING, topwalking, walkSize);
-	animation->Add(BOTTOMWALKING, bottomwalking, walkSize);
 	animation->Add(INVERTED, inverted, walkSize);
 	animation->Add(ATACK, atack, atackSize);
 	animation->Add(DEATH, death, deathSize);
 	
-	uint dead[1] = { 39 };
+	uint dead[1] = { lastFrameDeath };
 	animation->Add(DEAD, dead, 1);
 
 	BBox(new Rect(-20, -16, 19, 19));
@@ -61,29 +66,23 @@ Enemy::~Enemy() {
 
 void Enemy::Update() {
 
-	animation->Select(state);
-	animation->NextFrame();
-
-	if (animation->Frame() == 31) {
-		state = WALKING;
-	}
-
 	if (window->KeyPress('R')) {
 		state = ATACK;
+		direction = STOPPED;
 	}
-	if (window->KeyPress('Q')) {
+	if (window->KeyPress('Q') || life <= 0) {
 		state = DEATH;
+		direction = STOPPED;
+		life = 1; // valor > que 0 só pra não entrar mais nesse if e deixar o deathTime chegar em 2.0f pra poder excluir o objeto
 	}
 	if (window->KeyPress('D') || direction == GOINGRIGHT) {
 		state = WALKING;
 		direction = GOINGRIGHT;
 	}
 	if (window->KeyPress('W') || direction == GOINGUP) {
-		state = TOPWALKING;
 		direction = GOINGUP;
 	}
 	if (window->KeyPress('S') || direction == GOINGDOWN) {
-		state = BOTTOMWALKING;
 		direction = GOINGDOWN;
 	}
 	if (window->KeyPress('A') || direction == GOINGLEFT) {
@@ -91,21 +90,22 @@ void Enemy::Update() {
 		direction = GOINGLEFT;
 	}
 
-	if (state == WALKING) {
+	if (direction == GOINGRIGHT && direction != STOPPED) {
 		Translate(vel * gameTime, 0);
 	}
-	if (state == TOPWALKING) {
+	if (direction == GOINGUP) {
 		Translate(0, -vel * gameTime);
 	}
-	if (state == BOTTOMWALKING) {
+	if (direction == GOINGDOWN) {
 		Translate(0, vel * gameTime);
 	}
-	if (state == INVERTED) {
+	if (direction == GOINGLEFT) {
 		Translate(-vel * gameTime, 0);
 	}
 
-	if (animation->Frame() == 38) {
+	if (animation->Frame() == lastFrameDeath - 1) {
 		deathTime.Start();
+		BBox()->Scale(-1.0f); // escalar por -1 tá deixando ela sem colisão
 		state = DEAD;
 		Ghost* newGhost = new Ghost(ghost);
 		newGhost->MoveTo(x, y);
@@ -116,14 +116,49 @@ void Enemy::Update() {
 		TowerDefense::scene->Delete();
 	}
 	
+	animation->Select(state);
+	animation->NextFrame();
+
 }
 
 void Enemy::OnCollision(Object* obj) {
 
-	if (obj->Type() == TOWER) {
+	// substituir 100 por TOWER ou o objeto que os vegetais forem atacar
+	if (obj->Type() == 100) {
+
+		switch (direction) {
+		case GOINGRIGHT:
+			lastDirection = GOINGRIGHT;
+			break;
+		case GOINGLEFT:
+			lastDirection = GOINGLEFT;
+			break;
+		case GOINGUP:
+			lastDirection = GOINGUP;
+			break;
+		case GOINGDOWN:
+			lastDirection = GOINGDOWN;
+			break;
+		}
+
 		state = ATACK;
-		vel = 0;
+		direction = STOPPED;
+
+		Tower* tower = dynamic_cast<Tower*>(obj);
+		if (animation->Frame() == lastFrameAtack) {
+			tower->life--;
+			if (tower->life > 0) {
+				state = WALKING;
+			}
+			else {
+				state = WALKING;
+				direction = lastDirection;
+			}
+
+		}
+
 	}
+
 	if (obj->Type() == DIRECTIONPOINT) {
 
 		DirectionPoint* point = dynamic_cast<DirectionPoint*>(obj);
@@ -141,10 +176,10 @@ void Enemy::OnCollision(Object* obj) {
 			direction = GOINGRIGHT;
 		}
 	}
-}
 
-void Enemy::OnCollision(DirectionPoint* point) {
-	
-	
+	if (obj->Type() == POWER) {
+		life--;
 
+		TowerDefense::scene->Delete(obj, POWER);
+	}
 }

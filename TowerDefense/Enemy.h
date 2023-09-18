@@ -8,8 +8,6 @@
 
 enum EnemyState {
 	WALKING,
-	TOPWALKING,
-	BOTTOMWALKING,
 	INVERTED,
 	ATACK,
 	DEATH,
@@ -32,7 +30,8 @@ enum Directions {
 	GOINGUP,
 	GOINGDOWN,
 	GOINGLEFT,
-	GOINGRIGHT
+	GOINGRIGHT,
+	STOPPED
 };
 
 class Enemy : public Object {
@@ -42,9 +41,13 @@ private:
 	uint state = WALKING;
 	uint enemyType = CENOURA;	// cenoura é o tipo padrão
 	int vel;
+	int life;
+	int lastFrameDeath;
+	int lastFrameAtack;
 	TileSet* ghost;
 	Timer deathTime;
-	uint direction = LEFT;
+	uint direction = GOINGRIGHT;
+	uint lastDirection = STOPPED;
 
 public:
 
@@ -54,7 +57,6 @@ public:
 	void Update();
 	void Draw();
 	void OnCollision(Object* obj);
-	void OnCollision(DirectionPoint* point);
 
 };
 

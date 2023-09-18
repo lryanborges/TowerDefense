@@ -10,7 +10,8 @@
 enum ObjectType {
 	ENEMY,
 	TOWER,
-	DIRECTIONPOINT
+	DIRECTIONPOINT,
+	POWER
 };
 
 class TowerDefense : public Game {
