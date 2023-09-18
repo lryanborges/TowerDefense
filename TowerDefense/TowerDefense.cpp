@@ -48,6 +48,42 @@ void TowerDefense::Init() {
     point3->MoveTo(window->CenterX() - 220, window->CenterY() - 115);
     scene->Add(point3, STATIC);
 
+    DirectionPoint* point4 = new DirectionPoint(RIGHT);
+    point4->MoveTo(window->CenterX() - 258, window->CenterY() + 260);
+    scene->Add(point4, STATIC);
+
+    DirectionPoint* point5 = new DirectionPoint(UP);
+    point5->MoveTo(window->CenterX() - 88, window->CenterY() + 227);
+    scene->Add(point5, STATIC);
+
+    DirectionPoint* point6 = new DirectionPoint(RIGHT);
+    point6->MoveTo(window->CenterX() - 120, window->CenterY() - 80);
+    scene->Add(point6, STATIC);
+
+    DirectionPoint* point7 = new DirectionPoint(UP);
+    point7->MoveTo(window->CenterX() + 115, window->CenterY() - 47);
+    scene->Add(point7, STATIC);
+    
+    DirectionPoint* point8 = new DirectionPoint(RIGHT);
+    point8->MoveTo(window->CenterX() + 83, window->CenterY() - 285);
+    scene->Add(point8, STATIC);
+
+    DirectionPoint* point9 = new DirectionPoint(DOWN);
+    point9->MoveTo(window->CenterX() + 320, window->CenterY() - 252);
+    scene->Add(point9, STATIC);
+
+    DirectionPoint* point10 = new DirectionPoint(LEFT);
+    point10->MoveTo(window->CenterX() + 287, window->CenterY() + 123);
+    scene->Add(point10, STATIC);
+
+    DirectionPoint* point11 = new DirectionPoint(DOWN);
+    point11->MoveTo(window->CenterX() + 50, window->CenterY() + 88);
+    scene->Add(point11, STATIC);
+
+    DirectionPoint* point12 = new DirectionPoint(RIGHT);
+    point12->MoveTo(window->CenterX() + 85, window->CenterY() + 260);
+    scene->Add(point12, STATIC);
+
     // ------------------------------------------------------------------------------------
 
     Rain* chuva = new Rain(rain);
