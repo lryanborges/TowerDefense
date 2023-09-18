@@ -19,6 +19,7 @@ private:
 	Sprite* sprite;
 	stringstream text;
 	Timer atackTime;
+	uint towerType = GREEN;
 
 public:
 	int life;
@@ -26,7 +27,7 @@ public:
 	int Height();
 	int Width();
 
-	Tower();
+	Tower(uint twrType = GREEN);
 	~Tower();
 
 	void Update();

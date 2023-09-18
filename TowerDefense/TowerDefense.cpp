@@ -99,7 +99,7 @@ void TowerDefense::Init() {
     Enemy* cenoura = new Enemy(tilesetCouveFlor, COUVEFLOR);
     scene->Add(cenoura, MOVING);
 
-    Tower* tower = new Tower();
+    Tower* tower = new Tower(GREEN);
     scene->Add(tower, MOVING);
 
     /*Enemy* brocolis = new Enemy(tilesetBrocolis, BROCOLIS);
@@ -118,7 +118,7 @@ void TowerDefense::Finalize() {
 void TowerDefense::Update() {
 
     if (window->KeyPress(VK_LBUTTON)) {
-        Tower* tw = new Tower();
+        Tower* tw = new Tower(YELLOW);
         tw->MoveTo(window->MouseX(), window->MouseY() - (tw->Height()) / 3);
         scene->Add(tw, MOVING);
     }
