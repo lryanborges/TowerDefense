@@ -7,10 +7,15 @@ class Floor : public Object {
 private:
 
 	Sprite* sprite;
+	int posX;
+	int posY;
 
 public:
 
-	Floor(int posX, int posY);
+	int Height();
+	int Width();
+
+	Floor(Sprite* spt, int posX, int posY);
 	~Floor();
 
 	void Update();
@@ -19,5 +24,13 @@ public:
 };
 
 inline void Floor::Draw() {
-	sprite->Draw(x, y, z);
+	sprite->Draw(x, y, Layer::LOWER);
+}
+
+inline int Floor::Height() {
+	return sprite->Height();
+}
+
+inline int Floor::Width() {
+	return sprite->Width();
 }

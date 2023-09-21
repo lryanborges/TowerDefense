@@ -17,6 +17,7 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 		vel = 300;
 
 		type = POWERGREEN;
+		BBox(new Rect(-18, -6, 17, 5));
 	}
 
 	if (towerType == YELLOW) {
@@ -31,6 +32,7 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 
 		vel = 150;
 		type = POWERYELLOW;
+		BBox(new Rect(-14, -20, 13, 5));
 	}
 
 
@@ -44,7 +46,6 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 	MoveTo(imX, imY);
 
 	// new Rect(- 18, -6, 17, 5)
-	BBox(new Rect(-18, -6, 17, 5));
 
 }
 
@@ -67,6 +68,8 @@ void TowerPower::Update() {
 		if (distance > 0) {
 			float directionX = deltaX / distance;
 			float directionY = deltaY / distance;
+
+			RotateTo(180);
 
 			Translate(directionX * vel * gameTime, directionY * vel * gameTime);
 		}

@@ -2,6 +2,7 @@
 #include "TowerDefense.h"
 #include "TowerPower.h"
 #include "Enemy.h"
+#include "Floor.h"
 
 Tower::Tower(uint twrType) {
 
@@ -31,10 +32,6 @@ Tower::~Tower() {
 }
 
 void Tower::Update() {
-	text.str("");
-
-	text << life << ".\n";;
-	OutputDebugString(text.str().c_str());
 	if (life <= 0) {
 		TowerDefense::scene->Delete();
 	}
@@ -60,21 +57,50 @@ void Tower::OnCollision(Object* obj) {
 	if (obj->Type() == ENEMY) {
 		Enemy* enemy = dynamic_cast<Enemy*>(obj);
 
-		if (towerType == GREEN) {
-			if (atackTime.Elapsed(1.0f)) {
-				TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), GREEN);
-				TowerDefense::scene->Add(power, MOVING);
-				atackTime.Reset();
+		if (enemy->State() < DEATH || enemy->State() > DEAD) {
+			if (towerType == GREEN) {
+				if (atackTime.Elapsed(1.0f)) {
+					TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), GREEN);
+					TowerDefense::scene->Add(power, MOVING);
+					atackTime.Reset();
+				}
+			}
+
+			if (towerType == YELLOW) {
+				if (atackTime.Elapsed(2.0f)) {
+					TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), YELLOW);
+					TowerDefense::scene->Add(power, MOVING);
+					atackTime.Reset();
+				}
 			}
 		}
 
-		if (towerType == YELLOW) {
-			if (atackTime.Elapsed(2.0f)) {
-				TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), YELLOW);
-				TowerDefense::scene->Add(power, MOVING);
-				atackTime.Reset();
-			}
+	}
+
+	if (obj->Type() == FLOOR) {
+		Floor* floor = dynamic_cast<Floor*>(obj);
+
+		text.str("");
+
+		text << floor->X() << ".\n";;
+		OutputDebugString(text.str().c_str());
+
+		// Os códigos a seguir meio que delimitam que as estátuas não podem ser colocadas em cima dos pisos. Existe um ponto cego no meio dos blocos
+
+		/*if ((x + Width()) > floor->X() + floor->Width()) {	// delimitar mais esse if
+			MoveTo(floor->X() + floor->Width() - 10, y);
 		}
+
+		if ((x + Width()) < floor->X() + floor->Width()) {	// delimitar mais esse if
+			MoveTo(floor->X() - floor->Width() + 10, y);
+		}*/
+
+		/*if ((y + Height()) > floor->Y() + floor->Height()) {	// delimitar mais esse if
+			MoveTo(x, floor->X() - floor->Width() + 10);
+		}*/
+	}
+
+	if (obj->Type() == TOWER) {
 
 	}
 }

@@ -50,6 +50,8 @@ private:
 
 public:
 	int life;
+	
+	uint State();
 
 	Enemy(TileSet* tset, uint enType);
 	~Enemy();
@@ -62,4 +64,8 @@ public:
 
 inline void Enemy::Draw() {
 	animation->Draw(x, y, z);
+}
+
+inline uint Enemy::State() {
+	return state;
 }

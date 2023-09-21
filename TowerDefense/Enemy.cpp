@@ -71,41 +71,42 @@ void Enemy::Update() {
 		direction = STOPPED;
 	}
 	if (window->KeyPress('Q') || life <= 0) {
-		state = DEATH;
+		if (state < DEATH || state > DEAD) {
+			state = DEATH;
+		}
 		direction = STOPPED;
 		life = 1; // valor > que 0 só pra não entrar mais nesse if e deixar o deathTime chegar em 2.0f pra poder excluir o objeto
 	}
-	if (window->KeyPress('D') || direction == GOINGRIGHT) {
+	if (window->KeyPress('D') || (direction == GOINGRIGHT && (state < ATACK || state > DEAD))) {
 		state = WALKING;
 		direction = GOINGRIGHT;
 	}
-	if (window->KeyPress('W') || direction == GOINGUP) {
+	if (window->KeyPress('W') || (direction == GOINGUP && (state < ATACK || state > DEAD))) {
 		direction = GOINGUP;
 	}
-	if (window->KeyPress('S') || direction == GOINGDOWN) {
+	if (window->KeyPress('S') || (direction == GOINGDOWN && (state < ATACK || state > DEAD))) {
 		direction = GOINGDOWN;
 	}
-	if (window->KeyPress('A') || direction == GOINGLEFT) {
+	if (window->KeyPress('A') || (direction == GOINGLEFT && (state < ATACK || state > DEAD))) {
 		state = INVERTED;
 		direction = GOINGLEFT;
 	}
 
-	if (direction == GOINGRIGHT && direction != STOPPED) {
+	if (direction == GOINGRIGHT && direction != STOPPED && (state < ATACK || state > DEAD)) {
 		Translate(vel * gameTime, 0);
 	}
-	if (direction == GOINGUP) {
+	if (direction == GOINGUP && (state < ATACK || state > DEAD)) {
 		Translate(0, -vel * gameTime);
 	}
-	if (direction == GOINGDOWN) {
+	if (direction == GOINGDOWN && (state < ATACK || state > DEAD)) {
 		Translate(0, vel * gameTime);
 	}
-	if (direction == GOINGLEFT) {
+	if (direction == GOINGLEFT && (state < ATACK || state > DEAD)) {
 		Translate(-vel * gameTime, 0);
 	}
 
 	if (animation->Frame() == lastFrameDeath - 1) {
 		deathTime.Start();
-		BBox()->Scale(-1.0f); // escalar por -1 tá deixando ela sem colisão
 		state = DEAD;
 		Ghost* newGhost = new Ghost(ghost);
 		newGhost->MoveTo(x, y);
