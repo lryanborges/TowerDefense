@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include "TileSet.h"
 #include "Animation.h"
+#include "Mouse.h"
 
 enum ObjectType {
 	ENEMY,
@@ -15,7 +16,9 @@ enum ObjectType {
 	POWERYELLOW,
 	POWERRED,
 	POWERBLUE,
-	POWERPURPLE
+	POWERPURPLE, 
+	FLOOR,
+	MOUSE
 };
 
 class TowerDefense : public Game {
@@ -27,6 +30,7 @@ private:
 
 public:
 	static Scene* scene;
+	static Mouse* mouse;
 
 	void Init();
 	void Update();

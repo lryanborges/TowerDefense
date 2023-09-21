@@ -6,9 +6,11 @@
 #include "DirectionPoint.h"
 #include "Ghost.h"
 #include "Grass.h"
+#include "Floor.h"
+#include "Mouse.h"
 
 Scene* TowerDefense::scene = nullptr;
-
+Mouse* TowerDefense::mouse = nullptr;
 void TowerDefense::Init() {
 
     TileSet* tilesetCenoura = new TileSet("Resources/cenoura.png", 40, 50, 8, 30);
@@ -28,6 +30,9 @@ void TowerDefense::Init() {
     floor = new Sprite("Resources/floor.png");
 
     scene = new Scene();
+    
+    mouse = new Mouse();
+    scene->Add(mouse, MOVING);
 
     Grass* grass = new Grass(300, 300, 1);
     scene->Add(grass, STATIC);
@@ -35,6 +40,88 @@ void TowerDefense::Init() {
     Ghost* fant = new Ghost(ghost);
     scene->Add(fant, STATIC);
     fant->MoveTo(200, 200);
+
+    int posicaoX = -48;
+    int posicaoY = 360;
+    Floor* chao = new Floor(floor, posicaoX, posicaoY);
+    scene->Add(chao, STATIC);
+    for (int i = 0; i < 2; i++) {
+        posicaoX = posicaoX + 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
+
+    for (int i = 0; i < 2; i++) {
+        posicaoY = posicaoY - 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
+
+    for (int i = 0; i < 2; i++) {
+        posicaoX = posicaoX + 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
+
+    for (int i = 0; i < 5; i++) {
+        posicaoY = posicaoY + 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
+
+    for (int i = 0; i < 2; i++) {
+        posicaoX = posicaoX + 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
+
+    for (int i = 0; i < 4; i++) {
+        posicaoY = posicaoY - 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
+
+    for (int i = 0; i < 3; i++) {
+        posicaoX = posicaoX + 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
+
+    for (int i = 0; i < 3; i++) {
+        posicaoY = posicaoY - 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
+
+    for (int i = 0; i < 3; i++) {
+        posicaoX = posicaoX + 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
+
+    for (int i = 0; i < 5; i++) {
+        posicaoY = posicaoY + 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
+
+    for (int i = 0; i < 3; i++) {
+        posicaoX = posicaoX - 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
+
+    for (int i = 0; i < 2; i++) {
+        posicaoY = posicaoY + 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
+
+    for (int i = 0; i < 6; i++) {
+        posicaoX = posicaoX + 68;
+        chao = new Floor(floor, posicaoX, posicaoY);
+        scene->Add(chao, STATIC);
+    }
 
     // ------------------------------------------------------------------------------------
     //                DEFINIÇÃO DOS DIRECTIONS POINTS PRA ESSA FASE
@@ -96,8 +183,17 @@ void TowerDefense::Init() {
     /*Enemy* enemy = new Enemy(tilesetBatata, BATATA);
     scene->Add(enemy, MOVING);*/
 
-    Enemy* cenoura = new Enemy(tilesetCouveFlor, COUVEFLOR);
+    Enemy* couveflor = new Enemy(tilesetCouveFlor, COUVEFLOR);
+    scene->Add(couveflor, MOVING);
+
+    Enemy* batata = new Enemy(tilesetBatata, BATATA);
+    batata->MoveTo(-50, window->CenterY() + 20);
+    scene->Add(batata, MOVING);
+
+    Enemy* cenoura  = new Enemy(tilesetCenoura, CENOURA);
+    cenoura->MoveTo(-100, window->CenterY() + 20);
     scene->Add(cenoura, MOVING);
+
 
     Tower* tower = new Tower(GREEN);
     scene->Add(tower, MOVING);
@@ -117,7 +213,7 @@ void TowerDefense::Finalize() {
 
 void TowerDefense::Update() {
 
-    if (window->KeyPress(VK_LBUTTON)) {
+    if (window->KeyPress(VK_LBUTTON) && mouse->State() != COLISAO) {
         Tower* tw = new Tower(YELLOW);
         tw->MoveTo(window->MouseX(), window->MouseY() - (tw->Height()) / 3);
         scene->Add(tw, MOVING);
@@ -130,7 +226,6 @@ void TowerDefense::Update() {
 
 void TowerDefense::Draw() {
     ground->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
-    floor->Draw(window->CenterX(), window->CenterY(), Layer::LOWER);
     scene->Draw();
 }
 
