@@ -8,225 +8,41 @@
 #include "Grass.h"
 #include "Floor.h"
 #include "Mouse.h"
+#include "Level1.h"
 
+Game* TowerDefense::level = nullptr;
 Scene* TowerDefense::scene = nullptr;
 Mouse* TowerDefense::mouse = nullptr;
 void TowerDefense::Init() {
 
-    TileSet* tilesetCenoura = new TileSet("Resources/cenoura.png", 40, 50, 8, 30);
-    TileSet* tilesetBatata = new TileSet("Resources/batata.png", 40, 50, 8, 30);
-    TileSet* tilesetCebola = new TileSet("Resources/cebola.png", 40, 50, 8, 30);
-    TileSet* tilesetNabo = new TileSet("Resources/nabo.png", 40, 50, 8, 30);
-    TileSet* tilesetBrocolis = new TileSet("Resources/brocolis.png", 40, 50, 8, 30);
-    TileSet* tilesetCheiroVerde = new TileSet("Resources/cheiroverde.png", 40, 50, 8, 30);
-    TileSet* tilesetMilho = new TileSet("Resources/milho.png", 40, 50, 8, 30);
-    TileSet* tilesetAlface = new TileSet("Resources/alface.png", 40, 50, 8, 30);
-    TileSet* tilesetCouveFlor = new TileSet("Resources/couveflor.png", 40, 50, 8, 30);
+    level = new Level1();
 
-    TileSet* ghost = new TileSet("Resources/ghost.png", 32, 32, 10, 10);
+    level->Init();
 
-    rain = new TileSet("Resources/rain.png", 12, 12, 3, 3);
-    ground = new Sprite("Resources/ground.png");
-    floor = new Sprite("Resources/floor.png");
+    scene = Level1::scene;
 
-    scene = new Scene();
-    
     mouse = new Mouse();
     scene->Add(mouse, MOVING);
-
-    Grass* grass = new Grass(300, 300, 1);
-    scene->Add(grass, STATIC);
-
-    Ghost* fant = new Ghost(ghost);
-    scene->Add(fant, STATIC);
-    fant->MoveTo(200, 200);
-
-    int posicaoX = -48;
-    int posicaoY = 360;
-    Floor* chao = new Floor(floor, posicaoX, posicaoY);
-    scene->Add(chao, STATIC);
-    for (int i = 0; i < 2; i++) {
-        posicaoX = posicaoX + 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    for (int i = 0; i < 2; i++) {
-        posicaoY = posicaoY - 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    for (int i = 0; i < 2; i++) {
-        posicaoX = posicaoX + 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    for (int i = 0; i < 5; i++) {
-        posicaoY = posicaoY + 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    for (int i = 0; i < 2; i++) {
-        posicaoX = posicaoX + 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    for (int i = 0; i < 4; i++) {
-        posicaoY = posicaoY - 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    for (int i = 0; i < 3; i++) {
-        posicaoX = posicaoX + 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    for (int i = 0; i < 3; i++) {
-        posicaoY = posicaoY - 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    for (int i = 0; i < 3; i++) {
-        posicaoX = posicaoX + 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    for (int i = 0; i < 5; i++) {
-        posicaoY = posicaoY + 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    for (int i = 0; i < 3; i++) {
-        posicaoX = posicaoX - 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    for (int i = 0; i < 2; i++) {
-        posicaoY = posicaoY + 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    for (int i = 0; i < 6; i++) {
-        posicaoX = posicaoX + 68;
-        chao = new Floor(floor, posicaoX, posicaoY);
-        scene->Add(chao, STATIC);
-    }
-
-    // ------------------------------------------------------------------------------------
-    //                DEFINIÇÃO DOS DIRECTIONS POINTS PRA ESSA FASE
-    // ------------------------------------------------------------------------------------
-
-    DirectionPoint* point1 = new DirectionPoint(UP);
-    point1->MoveTo(window->CenterX() - 360, window->CenterY() + 20);    // -395 é bem no meio (do primeiro)
-    scene->Add(point1, STATIC);
-
-    DirectionPoint* point2 = new DirectionPoint(RIGHT);
-    point2->MoveTo(window->CenterX() - 393, window->CenterY() - 150);
-    scene->Add(point2, STATIC);
-
-    DirectionPoint* point3 = new DirectionPoint(DOWN);
-    point3->MoveTo(window->CenterX() - 220, window->CenterY() - 115);
-    scene->Add(point3, STATIC);
-
-    DirectionPoint* point4 = new DirectionPoint(RIGHT);
-    point4->MoveTo(window->CenterX() - 258, window->CenterY() + 260);
-    scene->Add(point4, STATIC);
-
-    DirectionPoint* point5 = new DirectionPoint(UP);
-    point5->MoveTo(window->CenterX() - 88, window->CenterY() + 227);
-    scene->Add(point5, STATIC);
-
-    DirectionPoint* point6 = new DirectionPoint(RIGHT);
-    point6->MoveTo(window->CenterX() - 120, window->CenterY() - 80);
-    scene->Add(point6, STATIC);
-
-    DirectionPoint* point7 = new DirectionPoint(UP);
-    point7->MoveTo(window->CenterX() + 115, window->CenterY() - 47);
-    scene->Add(point7, STATIC);
-    
-    DirectionPoint* point8 = new DirectionPoint(RIGHT);
-    point8->MoveTo(window->CenterX() + 83, window->CenterY() - 285);
-    scene->Add(point8, STATIC);
-
-    DirectionPoint* point9 = new DirectionPoint(DOWN);
-    point9->MoveTo(window->CenterX() + 320, window->CenterY() - 252);
-    scene->Add(point9, STATIC);
-
-    DirectionPoint* point10 = new DirectionPoint(LEFT);
-    point10->MoveTo(window->CenterX() + 287, window->CenterY() + 123);
-    scene->Add(point10, STATIC);
-
-    DirectionPoint* point11 = new DirectionPoint(DOWN);
-    point11->MoveTo(window->CenterX() + 50, window->CenterY() + 88);
-    scene->Add(point11, STATIC);
-
-    DirectionPoint* point12 = new DirectionPoint(RIGHT);
-    point12->MoveTo(window->CenterX() + 85, window->CenterY() + 260);
-    scene->Add(point12, STATIC);
-
-    // ------------------------------------------------------------------------------------
-
-    Rain* chuva = new Rain(rain);
-    scene->Add(chuva, STATIC);
-
-    /*Enemy* enemy = new Enemy(tilesetBatata, BATATA);
-    scene->Add(enemy, MOVING);*/
-
-    Enemy* couveflor = new Enemy(tilesetCouveFlor, COUVEFLOR);
-    scene->Add(couveflor, MOVING);
-
-    Enemy* batata = new Enemy(tilesetBatata, BATATA);
-    batata->MoveTo(-50, window->CenterY() + 20);
-    scene->Add(batata, MOVING);
-
-    Enemy* cenoura  = new Enemy(tilesetCenoura, CENOURA);
-    cenoura->MoveTo(-100, window->CenterY() + 20);
-    scene->Add(cenoura, MOVING);
-
-
-    Tower* tower = new Tower(GREEN);
-    scene->Add(tower, MOVING);
-
-    /*Enemy* brocolis = new Enemy(tilesetBrocolis, BROCOLIS);
-    scene->Add(brocolis, MOVING);
-    brocolis->MoveTo(window->CenterX(), window->CenterY());*/
 
 }
 
 void TowerDefense::Finalize() {
-    delete rain;
-    delete ground;
-    delete floor;
-    delete scene;
+    level->Finalize();
+    delete mouse;
+    delete level;
 }
 
 void TowerDefense::Update() {
-
-    if (window->KeyPress(VK_LBUTTON) && mouse->State() != COLISAO) {
+    if (window->KeyPress(VK_LBUTTON) && TowerDefense::mouse->State() != COLISAO) {
         Tower* tw = new Tower(YELLOW);
         tw->MoveTo(window->MouseX(), window->MouseY() - (tw->Height()) / 3);
         scene->Add(tw, MOVING);
     }
-
-    scene->Update();
-    scene->CollisionDetection();
-    scene->DrawBBox();
+    level->Update();
 }
 
 void TowerDefense::Draw() {
-    ground->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
-    scene->Draw();
+    level->Draw();
 }
 
 // ------------------------------------------------------------------------------

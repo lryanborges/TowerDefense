@@ -23,10 +23,7 @@ enum ObjectType {
 
 class TowerDefense : public Game {
 private:
-	Sprite* ground;
-	Sprite* floor;
-	TileSet* rain;
-	Animation* rainAnimation;
+	static Game* level;
 
 public:
 	static Scene* scene;
@@ -36,5 +33,17 @@ public:
 	void Update();
 	void Draw();
 	void Finalize();
+
+	template<class T>
+	static void NextLevel()         // muda para próximo nível do jogo
+	{
+		if (level)
+		{
+			level->Finalize();
+			delete level;
+			level = new T();
+			level->Init();
+		}
+	}
 
 };
