@@ -60,7 +60,6 @@ Enemy::Enemy(TileSet* tset, uint enType = 0) {
 
 Enemy::~Enemy() {
 	delete ghost;
-	delete tileset;
 	delete animation;
 }
 
