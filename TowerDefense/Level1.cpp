@@ -8,11 +8,17 @@
 #include "Tower.h"
 #include "TowerDefense.h"
 #include "Level2.h"
-
-
+#include "Hub.h"
+Hub* hub = nullptr;
 Scene* Level1::scene = nullptr;
 void Level1::Init() {
-
+    hub = new Hub();
+    button1 = new Button(REDB);
+    button2 = new Button(PURPLEB);
+    button3 = new Button(BLUEB);
+    button4 = new Button(YELLOWB);
+    button5 = new Button(GREENB);
+    button1->ScaleTo(0.6);
 	tilesetCenoura = new TileSet("Resources/cenoura.png", 40, 50, 8, 30);
     tilesetBatata = new TileSet("Resources/batata.png", 40, 50, 8, 30);
     tilesetCebola = new TileSet("Resources/cebola.png", 40, 50, 8, 30);
@@ -26,12 +32,12 @@ void Level1::Init() {
     rain = new TileSet("Resources/rain.png", 12, 12, 3, 3);
     ground = new Sprite("Resources/ground.png");
     floor = new Sprite("Resources/floor.png");
-
+    priest = new Priest();
     scene = new Scene();
 
     Grass* grass = new Grass(300, 300, 1);
     scene->Add(grass, STATIC);
-
+    
     int posicaoX = -48;
     int posicaoY = 360;
     Floor* chao = new Floor(floor, posicaoX, posicaoY);
@@ -41,7 +47,13 @@ void Level1::Init() {
         chao = new Floor(floor, posicaoX, posicaoY);
         scene->Add(chao, STATIC);
     }
-
+    scene->Add(hub, STATIC);
+    scene->Add(button1, STATIC);
+    scene->Add(button2, STATIC);
+    scene->Add(button3, STATIC);
+    scene->Add(button4, STATIC);
+    scene->Add(button5, STATIC);
+   // scene->Add(priest, STATIC);
     for (int i = 0; i < 2; i++) {
         posicaoY = posicaoY - 68;
         chao = new Floor(floor, posicaoX, posicaoY);
@@ -198,6 +210,12 @@ void Level1::Init() {
 }
 
 void Level1::Finalize() {
+    delete hub;
+    delete button1;
+    delete button2;
+    delete button3;
+    delete button4;
+    delete button5;
     delete tilesetCenoura;
     delete tilesetBatata;
     delete tilesetCebola;

@@ -13,7 +13,10 @@
 Game* TowerDefense::level = nullptr;
 Scene* TowerDefense::scene = nullptr;
 Mouse* TowerDefense::mouse = nullptr;
+
 void TowerDefense::Init() {
+
+
 
     level = new Level1();
 
@@ -23,6 +26,7 @@ void TowerDefense::Init() {
 
     mouse = new Mouse();
     scene->Add(mouse, MOVING);
+
 
 }
 
