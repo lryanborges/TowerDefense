@@ -3,14 +3,14 @@
 
 Priest::Priest() {
 
-	tileSet = new TileSet("Resources/priest.png", 80, 80, 4, 16);
-	animation = new Animation(tileSet, 0.5f, true);
+	tileSet = new TileSet("Resources/priest.png", 200, 200, 4, 16);
+	animation = new Animation(tileSet, 0.15f, true);
 	uint priest[16] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 };
-	uint stay[6] = { 2,3,4,4,3,2 };
-	animation->Add(STAY, stay, 6);
+	uint stay[5] = { 2,3,4,3,2 };
+	animation->Add(STAY, stay, 5);
 	animation->Add(MAGIC, priest, 16);
-
-	MoveTo(20, 645);
+	
+	MoveTo(100, 560);
 	type = PRIEST;
 }
 
@@ -36,7 +36,3 @@ void Priest::Update()
 	}
 }
 
-bool Priest::operator==(const Priest& other) const
-{
-	return false;
-}

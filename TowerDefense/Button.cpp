@@ -45,7 +45,7 @@ Button::Button(int b){
 		break;
 	}
 	
-	BBox(new Rect(-30, -30, 30, 30));
+	BBox(new Rect(-64, -64, 63, 63));
 
 type = BUTTON;
 }
@@ -89,6 +89,25 @@ void Button::Draw(){
 }
 
 void Button::OnCollision(Object* obj){
-
+	if (obj->Type() == MOUSE) {
+		switch (t) {
+		case REDB:
+			// Gerar torre vermelha
+			
+			break;
+		case PURPLEB:
+			// Gerar torre roxa
+			break;
+		case BLUEB:
+			// Gerar torre azul 
+			break;
+		case YELLOWB:
+			// Gerar torre amarela
+			break;
+		case GREENB:
+			// Gerar torre verde
+			break;
+		}
+	}
 
 }

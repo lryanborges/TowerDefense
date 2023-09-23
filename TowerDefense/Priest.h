@@ -23,13 +23,11 @@ public:
 	void Draw();
 	void OnCollision(Object* obj);
 
-
-	bool operator==(const Priest& other) const;
 };
 
 
 inline void Priest::Draw() {
-	animation->Draw(x, y, z);
+	animation->Draw(x, y, Layer::FRONT);
 }
 
 inline void Priest::OnCollision(Object* obj)
