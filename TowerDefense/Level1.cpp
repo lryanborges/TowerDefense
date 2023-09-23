@@ -53,7 +53,7 @@ void Level1::Init() {
     scene->Add(button3, STATIC);
     scene->Add(button4, STATIC);
     scene->Add(button5, STATIC);
-   // scene->Add(priest, STATIC);
+    scene->Add(priest, STATIC);
     for (int i = 0; i < 2; i++) {
         posicaoY = posicaoY - 68;
         chao = new Floor(floor, posicaoX, posicaoY);

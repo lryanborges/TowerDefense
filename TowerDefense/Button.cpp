@@ -45,7 +45,7 @@ Button::Button(int b){
 		break;
 	}
 	
-//BBox(new Rect(-30, -30, 30, 30));
+	BBox(new Rect(-30, -30, 30, 30));
 
 type = BUTTON;
 }

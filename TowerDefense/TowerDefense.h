@@ -19,7 +19,7 @@ enum ObjectType {
 	POWERPURPLE, 
 	FLOOR,
 	MOUSE,
-	BUTTON
+	BUTTON, PRIEST
 };
 
 class TowerDefense : public Game {
