@@ -9,6 +9,7 @@
 #include "Floor.h"
 #include "Mouse.h"
 #include "Level1.h"
+#include "MainMenu.h"
 
 Game* TowerDefense::level = nullptr;
 Scene* TowerDefense::scene = nullptr;
@@ -69,6 +70,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
     // inicia o jogo
     int status = engine->Start(new TowerDefense());
+    //int status = engine->Start(new MainMenu());
 
     delete engine;
     return status;

@@ -115,7 +115,13 @@ void Enemy::Update() {
 	if (deathTime.Elapsed(2.0f) && state == DEAD) {
 		TowerDefense::scene->Delete();
 	}
-	
+
+	if (x > (tileset->TileWidth() / 2) + window->Width()) {
+		TowerDefense::scene->Delete();
+		OutputDebugString("\n-1 | Passou um inimigo\n");
+		//Decrem vida
+	}
+
 	animation->Select(state);
 	animation->NextFrame();
 
