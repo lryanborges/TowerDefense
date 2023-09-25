@@ -26,11 +26,6 @@ private:
 	TileSet* tilesetMilho;
 	TileSet* tilesetAlface;
 	TileSet* tilesetCouveFlor;
-	Button* button1;
-	Button* button2;
-	Button* button3;
-	Button* button4;
-	Button* button5;
 	Priest * priest;
 public:
 	static Scene* scene;

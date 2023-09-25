@@ -1,10 +1,13 @@
 #include "Mouse.h"
 #include "TowerDefense.h"
 #include "Tower.h"
+#include "Priest.h"
 
+Tower* Mouse::towerCarry = nullptr;
 Mouse::Mouse() {
 	MoveTo(window->MouseX(), window->MouseY());
 
+	carrying = false;
 	BBox(new Rect(-20, -20, 19, 19));
 	type = MOUSE;
 }
@@ -14,8 +17,21 @@ Mouse::~Mouse() {
 }
 
 void Mouse::Update() {
-	MoveTo(window->MouseX(), window->MouseY());
+
+	if (carrying) {
+		towerCarry->MoveTo(x, y - (towerCarry->Height()) / 4);
+		if (window->KeyPress(VK_LBUTTON) && TowerDefense::mouse->State() != COLISAO) {
+			if (state != COLISAO) {
+				Priest::controler = true;
+				carrying = false;
+				towerCarry->MoveTo(x, y - (towerCarry->Height()) / 4);
+			}
+
+		}
+	}
 	state = PLENO;
+	MoveTo(window->MouseX(), window->MouseY());
+
 }
 
 void Mouse::OnCollision(Object * obj) {
@@ -30,8 +46,16 @@ void Mouse::OnCollision(Object * obj) {
 		Tower* tower = dynamic_cast<Tower*>(obj);
 
 		// inicialmente, -24, +23, -2, +43 -> left, right, top, bottom
-		if ((x > tower->X() - 50) && (x < tower->X() + 49) && (y > tower->Y() - 20) && (y < tower->Y() + 59)) {
+		if ((x > tower->X() - 50) && (x < tower->X() + 49) && (y > tower->Y() - 20) && (y < tower->Y() + 59) && !carrying) {
 			state = COLISAO;
 		}
+	}
+
+	if (obj->Type() == HUB) {
+		state = COLISAO;
+	}
+
+	if (obj->Type() == BUTTON) {
+		state = PLENO;
 	}
 }

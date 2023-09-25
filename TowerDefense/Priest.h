@@ -11,11 +11,10 @@ private:
 	TileSet* tileSet;
 	Animation* animation;
 	int fm = 0;
-	bool controler = false;
 	bool state = true;
 	uint stt = STAY;
 public:
-
+	static bool controler;
 
 	Priest();
 	~Priest();

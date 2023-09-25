@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Object.h"
+#include "Enemy.h"
+#include "Tower.h"
 
 enum MouseState {
 	PLENO,
@@ -13,6 +15,8 @@ private:
 	uint state = PLENO;
 
 public:
+	bool carrying;
+	static Tower* towerCarry;
 
 	uint State();
 

@@ -1,5 +1,7 @@
 #include "Button.h"
 #include "TowerDefense.h"
+#include "Tower.h"
+#include "Priest.h"
 
 Button::Button(int b){
 	t = b;
@@ -45,7 +47,25 @@ Button::Button(int b){
 		break;
 	}
 	
-	BBox(new Rect(-64, -64, 63, 63));
+	switch (t) {
+	case REDB:
+		MoveTo(610, 645);
+		break;
+	case PURPLEB:
+		MoveTo(680, 645);
+		break;
+	case BLUEB:
+		MoveTo(750, 645);
+		break;
+	case YELLOWB:
+		MoveTo(820, 645);
+		break;
+	case GREENB:
+		MoveTo(890, 645);
+		break;
+	}
+
+	BBox(new Rect(-28, -28, 27, 27));
 
 type = BUTTON;
 }
@@ -66,26 +86,9 @@ void Button::Update(){
 }
 
 void Button::Draw(){
+
+	button->Draw(x, y, Layer::FRONT);
 	
-	switch (t) {
-	case REDB:
-		button->Draw(610, 645, Layer::FRONT);
-		break;
-	case PURPLEB:
-		button->Draw(680, 645, Layer::FRONT);
-		break;
-	case BLUEB:
-		button->Draw(750, 645, Layer::FRONT);
-		break;
-	case YELLOWB:
-		button->Draw(820, 645, Layer::FRONT);
-		break;
-	case GREENB:
-		button->Draw(890, 645, Layer::FRONT);
-		break;
-	}
-
-
 }
 
 void Button::OnCollision(Object* obj){
@@ -93,19 +96,42 @@ void Button::OnCollision(Object* obj){
 		switch (t) {
 		case REDB:
 			// Gerar torre vermelha
-			
 			break;
 		case PURPLEB:
 			// Gerar torre roxa
 			break;
 		case BLUEB:
 			// Gerar torre azul 
+			if (window->KeyPress(VK_LBUTTON) && TowerDefense::mouse->State() != COLISAO) {
+				if (!TowerDefense::mouse->carrying) {
+					Tower* tw = new Tower(BLUE);
+					TowerDefense::scene->Add(tw, STATIC);
+					Mouse::towerCarry = tw;
+					TowerDefense::mouse->carrying = true;
+				}
+			}
 			break;
 		case YELLOWB:
 			// Gerar torre amarela
+			if (window->KeyPress(VK_LBUTTON) && TowerDefense::mouse->State() != COLISAO) {
+				if (!TowerDefense::mouse->carrying) {
+					Tower* tw = new Tower(YELLOW);
+					TowerDefense::scene->Add(tw, STATIC);
+					Mouse::towerCarry = tw;
+					TowerDefense::mouse->carrying = true;
+				}
+			}
 			break;
 		case GREENB:
 			// Gerar torre verde
+			if (window->KeyPress(VK_LBUTTON) && TowerDefense::mouse->State() != COLISAO) {
+				if (!TowerDefense::mouse->carrying) {
+					Tower* tw = new Tower(GREEN);
+					TowerDefense::scene->Add(tw, STATIC);
+					Mouse::towerCarry = tw;
+					TowerDefense::mouse->carrying = true;
+				}
+			}
 			break;
 		}
 	}
