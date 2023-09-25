@@ -9,8 +9,10 @@
 
 class Level1 : public Game {
 private:
-	Sprite* ground;
 	Sprite* floor;
+	Sprite* flowerFloor;
+	Sprite* basicFloor;
+	Sprite* ground;
 	TileSet* rain;
 	Animation* rainAnimation;
 

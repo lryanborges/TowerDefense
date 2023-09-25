@@ -2,7 +2,12 @@
 #include "Enemy.h"
 #include "Tower.h"
 #include "TowerDefense.h"
+#include "Rain.h"
+#include <random>
 
+
+std::random_device rd;
+std::mt19937 gen(rd());
 
 Scene* Level2::scene = nullptr;
 void Level2::Init() {
@@ -17,6 +22,8 @@ void Level2::Init() {
 	tilesetAlface = new TileSet("Resources/alface.png", 40, 50, 8, 30);
 	tilesetCouveFlor = new TileSet("Resources/couveflor.png", 40, 50, 8, 30);
 
+	tilesetRain = new TileSet("Resources/rain.png", 12, 12, 3, 3);
+
 	ground = new Sprite("Resources/ground.png");
 
 	scene = new Scene();
@@ -28,6 +35,8 @@ void Level2::Init() {
 
 	Tower* tower = new Tower(GREEN);
 	scene->Add(tower, MOVING);
+
+	rainTimerStarter = true;
 }
 
 void Level2::Finalize() {
@@ -40,12 +49,35 @@ void Level2::Finalize() {
 	delete tilesetMilho;
 	delete tilesetAlface;
 	delete tilesetCouveFlor;
+	delete tilesetRain;
 	scene->Remove(TowerDefense::mouse, MOUSE);
 	delete scene;
 	delete ground;
 }
 
 void Level2::Update() {
+
+	// ----------------------------
+	// Ambientação da chuva
+	// ----------------------------
+
+	if (rainTimerStarter) {
+		rainTimer.Start();
+		rainTimerStarter = false;
+	}
+	else {
+		if (rainTimer.Elapsed(0.05)) {
+			Rain* rain = new Rain(tilesetRain, random(0, 2));
+			// é bom espalhar mais, definir mais intervalos mais fechados
+			rain->MoveTo(random(0, window->Width() + 500), 0);
+			scene->Add(rain, STATIC);
+
+			rainTimerStarter = true;
+			rainTimer.Reset();
+		}
+	}
+
+
 	scene->Update();
 	scene->DrawBBox();
 	scene->CollisionDetection();
@@ -54,4 +86,11 @@ void Level2::Update() {
 void Level2::Draw() {
 	ground->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
 	scene->Draw();
+}
+
+
+int Level2::random(int low, int high)
+{
+	std::uniform_int_distribution<> dist(low, high);
+	return dist(gen);
 }

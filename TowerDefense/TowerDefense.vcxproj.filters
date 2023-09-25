@@ -224,6 +224,9 @@
     <ClInclude Include="Level2.h">
       <Filter>Game\Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Game\Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Pixel.hlsl">
@@ -232,5 +235,10 @@
     <FxCompile Include="Vertex.hlsl">
       <Filter>Engine\Arquivos de Sombreamento</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TowerDefense.rc">
+      <Filter>Game\Arquivos de Recurso</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

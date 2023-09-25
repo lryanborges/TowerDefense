@@ -3,7 +3,6 @@
 #include "Ghost.h"
 #include "Floor.h"
 #include "DirectionPoint.h"
-#include "Rain.h"
 #include "Enemy.h"
 #include "Tower.h"
 #include "TowerDefense.h"
@@ -23,15 +22,20 @@ void Level1::Init() {
     tilesetAlface = new TileSet("Resources/alface.png", 40, 50, 8, 30);
     tilesetCouveFlor = new TileSet("Resources/couveflor.png", 40, 50, 8, 30);
 
-    rain = new TileSet("Resources/rain.png", 12, 12, 3, 3);
     ground = new Sprite("Resources/ground.png");
     floor = new Sprite("Resources/floor.png");
 
     scene = new Scene();
 
-    Grass* grass = new Grass(300, 300, 1);
-    scene->Add(grass, STATIC);
 
+    // ----------------------------------
+    //          Ambientação
+    // ----------------------------------
+    Grass* ambientation = new Grass(143, 393, 8); scene->Add(ambientation, STATIC);
+
+    // ----------------------------------
+    //        Definição de rota
+    // ----------------------------------
     int posicaoX = -48;
     int posicaoY = 360;
     Floor* chao = new Floor(floor, posicaoX, posicaoY);
@@ -114,6 +118,40 @@ void Level1::Init() {
         scene->Add(chao, STATIC);
     }
 
+    // ----------------------------------
+    //        Resto dos pisos
+    // ----------------------------------
+    Sprite* flowerFloor = new Sprite("Resources/flowerGround.png");
+    Sprite* basicFloor = new Sprite("Resources/basicGround.png");
+    posicaoY = posicaoY + 68;
+    for (int i = 0; i < 15; i++) {
+        if (i == 2 || i == 7 || i == 11) {
+            chao = new Floor(flowerFloor, posicaoX, posicaoY, true);
+        }
+        else {
+            chao = new Floor(basicFloor, posicaoX, posicaoY, true);
+        }
+        scene->Add(chao, STATIC);
+        posicaoX = posicaoX - 68;
+    }
+
+    int n68 = 68;
+    posicaoY = posicaoY - 68;
+    for (int i = 1; i <= 144; i++) {
+        if (i == 3 || i == 22 || i == 36 || i == 51 || i == 55 || i == 58 || i == 66 || i == 78 || i == 86 || i == 91 || i == 101 || i == 121 || i == 131 || i == 132 || i == 140 || i == 143) {
+            chao = new Floor(flowerFloor, posicaoX, posicaoY, true);
+        }
+        else {
+            chao = new Floor(basicFloor, posicaoX, posicaoY, true);
+        }
+        scene->Add(chao, STATIC);
+        posicaoX = posicaoX + n68;
+        if (i % 16 == 0) {
+            posicaoY = posicaoY - 68;
+            n68 = -n68;
+        }
+    }
+
     // ------------------------------------------------------------------------------------
     //                DEFINIÇÃO DOS DIRECTIONS POINTS PRA ESSA FASE
     // ------------------------------------------------------------------------------------
@@ -168,9 +206,6 @@ void Level1::Init() {
 
     // ------------------------------------------------------------------------------------
 
-    Rain* chuva = new Rain(rain);
-    scene->Add(chuva, STATIC);
-
     /*Enemy* enemy = new Enemy(tilesetBatata, BATATA);
     scene->Add(enemy, MOVING);*/
 
@@ -190,7 +225,7 @@ void Level1::Init() {
     scene->Add(cenoura2, MOVING);
 
     Tower* tower = new Tower(GREEN);
-    scene->Add(tower, MOVING);
+    scene->Add(tower, STATIC);
 
     /*Enemy* brocolis = new Enemy(tilesetBrocolis, BROCOLIS);
     scene->Add(brocolis, MOVING);
@@ -207,9 +242,10 @@ void Level1::Finalize() {
     delete tilesetMilho;
     delete tilesetAlface;
     delete tilesetCouveFlor;
-    delete rain;
-    delete ground;
     delete floor;
+    delete flowerFloor;
+    delete basicFloor;
+    delete ground;
     scene->Remove(TowerDefense::mouse, MOUSE);
     delete scene;
 }

@@ -18,7 +18,10 @@ enum ObjectType {
 	POWERBLUE,
 	POWERPURPLE, 
 	FLOOR,
-	MOUSE
+	MOUSE,
+	FLOORSPACE,
+	TOWERGREEN,
+	TOWERBLUE
 };
 
 class TowerDefense : public Game {

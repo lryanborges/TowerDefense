@@ -20,5 +20,5 @@ public:
 };
 
 inline void Grass::Draw() {
-	sprite->Draw(x, y, z);
+	sprite->Draw(x, y, Layer::LOWER);
 }

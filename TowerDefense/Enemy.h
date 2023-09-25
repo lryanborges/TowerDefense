@@ -49,6 +49,7 @@ private:
 	uint lastDirection = STOPPED;
 
 public:
+	bool hited;
 	int life;
 	
 	uint State();
@@ -63,7 +64,7 @@ public:
 };
 
 inline void Enemy::Draw() {
-	animation->Draw(x, y, z);
+	animation->Draw(x, y, Layer::UPPER);
 }
 
 inline uint Enemy::State() {

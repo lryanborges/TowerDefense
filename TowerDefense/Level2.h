@@ -4,10 +4,14 @@
 #include "Scene.h"
 #include "Sprite.h"
 #include "TileSet.h"
+#include "Timer.h"
 
 class Level2 : public Game {
 private:
 	Sprite* ground;
+	TileSet* tilesetRain;
+	Timer rainTimer;
+	bool rainTimerStarter;
 
 	// TileSets mobs
 	TileSet* tilesetCenoura;
@@ -22,6 +26,8 @@ private:
 
 public:
 	static Scene* scene;
+
+	int random(int low, int high);
 
 	void Init();
 	void Update();

@@ -35,6 +35,16 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 		BBox(new Rect(-14, -20, 13, 5));
 	}
 
+	if (towerType == BLUE) {
+		tileset = new TileSet("Resources/powerBlue.png", 100, 100, 12, 12);
+		animation = new Animation(tileset, 0.05f, false);
+
+		vel = 0;
+		type = POWERBLUE;
+		auxHit = true;
+		BBox(new Circle(40));
+	}
+
 
 	cdr = 50;
 
@@ -43,7 +53,13 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 	dstX = toX;
 	dstY = toY;
 
-	MoveTo(imX, imY);
+	if (type != POWERBLUE) {
+		MoveTo(imX, imY);
+		hitedTimer.Start();
+		auxHit = true;
+	}
+
+	contEnemy = 0;
 
 	// new Rect(- 18, -6, 17, 5)
 
@@ -117,7 +133,18 @@ void TowerPower::Update() {
 			TowerDefense::scene->Delete();
 		}
 
+	}
 
+	if (Type() == POWERBLUE) {
+		if (animation->Frame() == 11) {
+			TowerDefense::scene->Delete();
+		}
+
+		if (contEnemy == 0) {
+			MoveTo(dstX, dstY);
+		}
+
+		cdr--;
 	}
 	
 }
@@ -128,12 +155,43 @@ void TowerPower::OnCollision(Object* obj) {
 
 		Enemy* enemy = dynamic_cast<Enemy*>(obj);
 
-		powerState = YELLOWEXPLOSION;
-		vel = 0;
+		if (Type() == POWERYELLOW) {
+			powerState = YELLOWEXPLOSION;
+			vel = 0;
 
-		if (animation->Frame() < 20) {
-			enemy->life--;
+			if (animation->Frame() < 20) {
+				enemy->hited = true;
+			}
 		}
+
+		if (Type() == POWERBLUE) {
+
+			// fazer sentido de bomba que gruda no mob
+			if (contEnemy == 0) {
+				firstEnemy = enemy;
+				contEnemy++;
+			}
+			else {
+				contEnemy++;
+			}
+		
+			if (firstEnemy != nullptr) {
+				MoveTo(firstEnemy->X(), firstEnemy->Y());
+			}
+
+			enemies.insert(enemy);
+
+			if (animation->Frame() == 10) {
+				if (canHit) {
+					for (const auto& en : enemies) {
+						en->life--;
+					}
+					canHit = false;
+				}
+			}
+			
+		}
+
 	}
 
 }

@@ -18,8 +18,15 @@ class Tower : public Object {
 private:
 	Sprite* sprite;
 	stringstream text;
-	Timer atackTime;
+	Timer greenAtackTimer;
+	Timer yellowAtackTimer;
+	Timer blueAtackTimer;
 	uint towerType = GREEN;
+	bool startAtack;
+	int enemyX;
+	int enemyY;
+	bool hitEnemy;
+	bool firstHit;
 
 public:
 	int life;

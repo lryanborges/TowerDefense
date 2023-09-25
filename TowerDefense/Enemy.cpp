@@ -2,6 +2,7 @@
 #include "Ghost.h"
 #include "TowerDefense.h"
 #include "Tower.h"
+#include "TowerPower.h"
 
 Enemy::Enemy(TileSet* tset, uint enType = 0) {
 
@@ -9,7 +10,7 @@ Enemy::Enemy(TileSet* tset, uint enType = 0) {
 	enemyType = enType;
 
 	vel = 100;
-	life = 1;
+	life = 2;
 	lastFrameDeath = 23;
 	lastFrameAtack = 15;
 
@@ -26,7 +27,7 @@ Enemy::Enemy(TileSet* tset, uint enType = 0) {
 
 	if (enemyType == BATATA) {
 		walkSize = 6;
-		life = 1;
+		life = 5;
 	}
 	if (enemyType == COUVEFLOR) {
 		walkSize = 6;
@@ -55,6 +56,7 @@ Enemy::Enemy(TileSet* tset, uint enType = 0) {
 
 	MoveTo(0, window->CenterY() + 20);
 
+	hited = false;
 	type = ENEMY;
 }
 
@@ -64,6 +66,11 @@ Enemy::~Enemy() {
 }
 
 void Enemy::Update() {
+
+	if (hited) {
+		life--;
+		hited = false;
+	}
 
 	if (window->KeyPress('R')) {
 		state = ATACK;
@@ -182,4 +189,5 @@ void Enemy::OnCollision(Object* obj) {
 
 		TowerDefense::scene->Delete(obj, POWERGREEN);
 	}
+
 }
