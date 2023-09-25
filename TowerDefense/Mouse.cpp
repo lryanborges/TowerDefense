@@ -5,7 +5,7 @@
 Mouse::Mouse() {
 	MoveTo(window->MouseX(), window->MouseY());
 
-	BBox(new Circle(1));
+	BBox(new Rect(-20, -20, 19, 19));
 	type = MOUSE;
 }
 
@@ -23,6 +23,7 @@ void Mouse::OnCollision(Object * obj) {
 		if (x > obj->X() - 34 && x < obj->X() + 33 && y > obj->Y() - 34 && y < obj->Y() + 33) {
 			state = COLISAO;
 		}
+		state = COLISAO;
 	}
 
 	if (obj->Type() == TOWER) {

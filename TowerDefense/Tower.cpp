@@ -18,12 +18,20 @@ Tower::Tower(uint twrType) {
 		BBox(new Circle(180));
 	}
 
+	if (towerType == BLUE) {
+		sprite = new Sprite("Resources/statueBlue.png");
+		BBox(new Circle(180));
+	}
+
 	// new Rect(-24, -2, 23, 43)
 
 	MoveTo(window->CenterX(), window->CenterY());
 
 	life = 5;
-
+	startAtack = true;
+	hitEnemy = false;
+	firstHit = true;
+	
 	type = TOWER;
 }
 
@@ -36,16 +44,19 @@ void Tower::Update() {
 		TowerDefense::scene->Delete();
 	}
 
-	if (towerType == GREEN || towerType == YELLOW) {
+	if (towerType == GREEN || towerType == YELLOW || towerType == BLUE) {
 		// só pra começar a contar o tempo
-		if (TowerPower::cdr == 50) {
-			atackTime.Start();
+		if (startAtack) {
+			greenAtackTimer.Start();
+			yellowAtackTimer.Start();
+			blueAtackTimer.Start();
 		}
 	}
 
 }
 
 void Tower::Draw() {
+	
 	sprite->Draw(x, y, z);
 
 	// , 1.0f, 0.0f, {1.3, 1, 1, 1} -> vermelho soft
@@ -56,24 +67,38 @@ void Tower::OnCollision(Object* obj) {
 
 	if (obj->Type() == ENEMY) {
 		Enemy* enemy = dynamic_cast<Enemy*>(obj);
+		startAtack = false;
 
-		if (enemy->State() < DEATH || enemy->State() > DEAD) {
-			if (towerType == GREEN) {
-				if (atackTime.Elapsed(1.0f)) {
-					TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), GREEN);
-					TowerDefense::scene->Add(power, MOVING);
-					atackTime.Reset();
+			if (enemy->State() < DEATH || enemy->State() > DEAD) {
+				if (towerType == GREEN) {
+					if (firstHit || greenAtackTimer.Elapsed(1.0f)) {
+						TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), GREEN);
+						TowerDefense::scene->Add(power, MOVING);
+						greenAtackTimer.Reset();
+						firstHit = false;
+					}
+				}
+
+				if (towerType == YELLOW) {
+					if (firstHit || yellowAtackTimer.Elapsed(2.0f)) {
+						TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), YELLOW);
+						TowerDefense::scene->Add(power, MOVING);
+						yellowAtackTimer.Reset();
+						firstHit = false;
+					}
+				}
+
+				if (towerType == BLUE) {
+					if (firstHit || blueAtackTimer.Elapsed(2.0f)) {
+						TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), BLUE);
+						TowerDefense::scene->Add(power, MOVING);
+						blueAtackTimer.Reset();
+						firstHit = false;
+						power->canHit = true;
+					}
 				}
 			}
 
-			if (towerType == YELLOW) {
-				if (atackTime.Elapsed(2.0f)) {
-					TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), YELLOW);
-					TowerDefense::scene->Add(power, MOVING);
-					atackTime.Reset();
-				}
-			}
-		}
 
 	}
 
@@ -84,23 +109,5 @@ void Tower::OnCollision(Object* obj) {
 
 		text << floor->X() << ".\n";;
 		OutputDebugString(text.str().c_str());
-
-		// Os códigos a seguir meio que delimitam que as estátuas não podem ser colocadas em cima dos pisos. Existe um ponto cego no meio dos blocos
-
-		/*if ((x + Width()) > floor->X() + floor->Width()) {	// delimitar mais esse if
-			MoveTo(floor->X() + floor->Width() - 10, y);
-		}
-
-		if ((x + Width()) < floor->X() + floor->Width()) {	// delimitar mais esse if
-			MoveTo(floor->X() - floor->Width() + 10, y);
-		}*/
-
-		/*if ((y + Height()) > floor->Y() + floor->Height()) {	// delimitar mais esse if
-			MoveTo(x, floor->X() - floor->Width() + 10);
-		}*/
-	}
-
-	if (obj->Type() == TOWER) {
-
 	}
 }

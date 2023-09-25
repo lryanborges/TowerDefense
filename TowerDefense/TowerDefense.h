@@ -19,7 +19,11 @@ enum ObjectType {
 	POWERPURPLE, 
 	FLOOR,
 	MOUSE,
-	BUTTON, PRIEST
+	FLOORSPACE,
+	TOWERGREEN,
+	TOWERBLUE,
+	BUTTON, 
+  PRIEST
 };
 
 class TowerDefense : public Game {
@@ -36,7 +40,7 @@ public:
 	void Finalize();
 
 	template<class T>
-	static void NextLevel()         // muda para próximo nível do jogo
+	static void NextLevel()         // muda para prÃ³ximo nÃ­vel do jogo
 	{
 		if (level)
 		{

@@ -38,9 +38,9 @@ void TowerDefense::Finalize() {
 
 void TowerDefense::Update() {
     if (window->KeyPress(VK_LBUTTON) && TowerDefense::mouse->State() != COLISAO) {
-        Tower* tw = new Tower(YELLOW);
-        tw->MoveTo(window->MouseX(), window->MouseY() - (tw->Height()) / 3);
-        scene->Add(tw, MOVING);
+        Tower* tw = new Tower(BLUE);
+        tw->MoveTo(TowerDefense::mouse->X(), TowerDefense::mouse->Y() - (tw->Height()) / 4);
+        scene->Add(tw, STATIC);
     }
     level->Update();
 }
@@ -63,8 +63,8 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     engine->window->Size(968, 680);
     engine->window->Color(200, 24, 240);
     engine->window->Title("Tower Defense");
-    //engine->window->Icon(IDI_ICON);
-    //engine->window->Cursor(IDC_CURSOR);
+    engine->window->Icon(IDI_ICON);
+    engine->window->Cursor(IDC_CURSOR);
     //engine->graphics->VSync(true);
 
     // inicia o jogo
