@@ -7,17 +7,10 @@
 #include "Tower.h"
 #include "TowerDefense.h"
 #include "Level2.h"
-#include "Hub.h"
-Hub* hub = nullptr;
+
 Scene* Level1::scene = nullptr;
 void Level1::Init() {
-    hub = new Hub();
-    button1 = new Button(REDB);
-    button2 = new Button(PURPLEB);
-    button3 = new Button(BLUEB);
-    button4 = new Button(YELLOWB);
-    button5 = new Button(GREENB);
-    button1->ScaleTo(0.6);
+
 	tilesetCenoura = new TileSet("Resources/cenoura.png", 40, 50, 8, 30);
     tilesetBatata = new TileSet("Resources/batata.png", 40, 50, 8, 30);
     tilesetCebola = new TileSet("Resources/cebola.png", 40, 50, 8, 30);
@@ -50,12 +43,6 @@ void Level1::Init() {
         chao = new Floor(floor, posicaoX, posicaoY);
         scene->Add(chao, STATIC);
     }
-    scene->Add(hub, STATIC);
-    scene->Add(button1, STATIC);
-    scene->Add(button2, STATIC);
-    scene->Add(button3, STATIC);
-    scene->Add(button4, STATIC);
-    scene->Add(button5, STATIC);
     scene->Add(priest, STATIC);
     for (int i = 0; i < 2; i++) {
         posicaoY = posicaoY - 68;
@@ -134,20 +121,9 @@ void Level1::Init() {
     // ----------------------------------
     Sprite* flowerFloor = new Sprite("Resources/flowerGround.png");
     Sprite* basicFloor = new Sprite("Resources/basicGround.png");
-    posicaoY = posicaoY + 68;
-    for (int i = 0; i < 15; i++) {
-        if (i == 2 || i == 7 || i == 11) {
-            chao = new Floor(flowerFloor, posicaoX, posicaoY, true);
-        }
-        else {
-            chao = new Floor(basicFloor, posicaoX, posicaoY, true);
-        }
-        scene->Add(chao, STATIC);
-        posicaoX = posicaoX - 68;
-    }
 
-    int n68 = 68;
-    posicaoY = posicaoY - 68;
+    int n68 = -68;
+    posicaoX = posicaoX + 68;
     for (int i = 1; i <= 144; i++) {
         if (i == 3 || i == 22 || i == 36 || i == 51 || i == 55 || i == 58 || i == 66 || i == 78 || i == 86 || i == 91 || i == 101 || i == 121 || i == 131 || i == 132 || i == 140 || i == 143) {
             chao = new Floor(flowerFloor, posicaoX, posicaoY, true);
@@ -258,6 +234,7 @@ void Level1::Finalize() {
     delete basicFloor;
     delete ground;
     scene->Remove(TowerDefense::mouse, MOUSE);
+    scene->Remove(TowerDefense::hub, HUB);
     delete scene;
 }
 

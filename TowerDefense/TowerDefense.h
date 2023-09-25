@@ -7,6 +7,7 @@
 #include "TileSet.h"
 #include "Animation.h"
 #include "Mouse.h"
+#include "Hub.h"
 
 enum ObjectType {
 	ENEMY,
@@ -23,7 +24,8 @@ enum ObjectType {
 	TOWERGREEN,
 	TOWERBLUE,
 	BUTTON, 
-  PRIEST
+	PRIEST,
+	HUB
 };
 
 class TowerDefense : public Game {
@@ -33,6 +35,7 @@ private:
 public:
 	static Scene* scene;
 	static Mouse* mouse;
+	static Hub* hub;
 
 	void Init();
 	void Update();

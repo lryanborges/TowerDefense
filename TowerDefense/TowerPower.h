@@ -46,7 +46,7 @@ public:
 };
 
 inline void TowerPower::Draw() {
-	animation->Draw(x, y, z, scale, rotation);
+	animation->Draw(x, y, Layer::FRONT, 1.1, rotation);
 }
 
 inline int TowerPower::Frame() {

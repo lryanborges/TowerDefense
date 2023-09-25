@@ -9,14 +9,14 @@
 #include "Floor.h"
 #include "Mouse.h"
 #include "Level1.h"
+#include "Hub.h"
 
 Game* TowerDefense::level = nullptr;
 Scene* TowerDefense::scene = nullptr;
 Mouse* TowerDefense::mouse = nullptr;
+Hub* TowerDefense::hub = nullptr;
 
 void TowerDefense::Init() {
-
-
 
     level = new Level1();
 
@@ -27,6 +27,20 @@ void TowerDefense::Init() {
     mouse = new Mouse();
     scene->Add(mouse, MOVING);
 
+    hub = new Hub();
+    scene->Add(hub, STATIC);
+
+    Button* button1 = new Button(REDB);
+    Button* button2 = new Button(PURPLEB);
+    Button* button3 = new Button(BLUEB);
+    Button* button4 = new Button(YELLOWB);
+    Button* button5 = new Button(GREENB);
+
+    scene->Add(button1, STATIC);
+    scene->Add(button2, STATIC);
+    scene->Add(button3, STATIC);
+    scene->Add(button4, STATIC);
+    scene->Add(button5, STATIC);
 
 }
 
@@ -37,11 +51,6 @@ void TowerDefense::Finalize() {
 }
 
 void TowerDefense::Update() {
-    if (window->KeyPress(VK_LBUTTON) && TowerDefense::mouse->State() != COLISAO) {
-        Tower* tw = new Tower(BLUE);
-        tw->MoveTo(TowerDefense::mouse->X(), TowerDefense::mouse->Y() - (tw->Height()) / 4);
-        scene->Add(tw, STATIC);
-    }
     level->Update();
 }
 

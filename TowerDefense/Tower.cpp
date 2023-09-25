@@ -31,7 +31,7 @@ Tower::Tower(uint twrType) {
 	startAtack = true;
 	hitEnemy = false;
 	firstHit = true;
-	
+
 	type = TOWER;
 }
 
@@ -57,7 +57,7 @@ void Tower::Update() {
 
 void Tower::Draw() {
 	
-	sprite->Draw(x, y, z);
+	sprite->Draw(x, y, Layer::UPPER);
 
 	// , 1.0f, 0.0f, {1.3, 1, 1, 1} -> vermelho soft
 	// {2, 35, 212, 1} -> cristal
@@ -110,4 +110,5 @@ void Tower::OnCollision(Object* obj) {
 		text << floor->X() << ".\n";;
 		OutputDebugString(text.str().c_str());
 	}
+
 }
