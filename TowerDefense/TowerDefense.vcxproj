@@ -170,6 +170,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DirectionPoint.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -181,11 +182,13 @@
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="Hub.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="Level2.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Priest.cpp" />
     <ClCompile Include="Rain.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -203,6 +206,8 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Audio.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Hub.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DirectionPoint.h" />
     <ClInclude Include="Enemy.h" />
@@ -219,6 +224,7 @@
     <ClInclude Include="Level2.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Priest.h" />
     <ClInclude Include="Rain.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />

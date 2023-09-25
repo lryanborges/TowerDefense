@@ -7,11 +7,17 @@
 #include "Tower.h"
 #include "TowerDefense.h"
 #include "Level2.h"
-
-
+#include "Hub.h"
+Hub* hub = nullptr;
 Scene* Level1::scene = nullptr;
 void Level1::Init() {
-
+    hub = new Hub();
+    button1 = new Button(REDB);
+    button2 = new Button(PURPLEB);
+    button3 = new Button(BLUEB);
+    button4 = new Button(YELLOWB);
+    button5 = new Button(GREENB);
+    button1->ScaleTo(0.6);
 	tilesetCenoura = new TileSet("Resources/cenoura.png", 40, 50, 8, 30);
     tilesetBatata = new TileSet("Resources/batata.png", 40, 50, 8, 30);
     tilesetCebola = new TileSet("Resources/cebola.png", 40, 50, 8, 30);
@@ -24,17 +30,16 @@ void Level1::Init() {
 
     ground = new Sprite("Resources/ground.png");
     floor = new Sprite("Resources/floor.png");
-
+    priest = new Priest();
     scene = new Scene();
 
-
     // ----------------------------------
-    //          Ambientação
+    //          AmbientaÃ§Ã£o
     // ----------------------------------
     Grass* ambientation = new Grass(143, 393, 8); scene->Add(ambientation, STATIC);
 
     // ----------------------------------
-    //        Definição de rota
+    //        DefiniÃ§Ã£o de rota
     // ----------------------------------
     int posicaoX = -48;
     int posicaoY = 360;
@@ -45,7 +50,13 @@ void Level1::Init() {
         chao = new Floor(floor, posicaoX, posicaoY);
         scene->Add(chao, STATIC);
     }
-
+    scene->Add(hub, STATIC);
+    scene->Add(button1, STATIC);
+    scene->Add(button2, STATIC);
+    scene->Add(button3, STATIC);
+    scene->Add(button4, STATIC);
+    scene->Add(button5, STATIC);
+    scene->Add(priest, STATIC);
     for (int i = 0; i < 2; i++) {
         posicaoY = posicaoY - 68;
         chao = new Floor(floor, posicaoX, posicaoY);
@@ -153,11 +164,11 @@ void Level1::Init() {
     }
 
     // ------------------------------------------------------------------------------------
-    //                DEFINIÇÃO DOS DIRECTIONS POINTS PRA ESSA FASE
+    //                DEFINIÃ‡ÃƒO DOS DIRECTIONS POINTS PRA ESSA FASE
     // ------------------------------------------------------------------------------------
 
     DirectionPoint* point1 = new DirectionPoint(UP);
-    point1->MoveTo(window->CenterX() - 360, window->CenterY() + 20);    // -395 é bem no meio (do primeiro)
+    point1->MoveTo(window->CenterX() - 360, window->CenterY() + 20);    // -395 Ã© bem no meio (do primeiro)
     scene->Add(point1, STATIC);
 
     DirectionPoint* point2 = new DirectionPoint(RIGHT);
