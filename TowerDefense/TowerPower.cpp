@@ -117,24 +117,24 @@ void TowerPower::Update() {
 
 	if (Type() == POWERGREEN) {
 
-		// calcular as diferenÁas em X e Y
+		// calcular as diferen√ßas em X e Y
 		float deltaX = dstX - imX;
 		float deltaY = dstY - imY;
 
-		// calcular o ‚ngulo em graus
+		// calcular o √¢ngulo em graus
 		float angle = atan2(deltaY, deltaX) * (180.0f / 3.1415926535);
 
-		// garantir que o ‚ngulo est· no intervalo [0, 360)
+		// garantir que o √¢ngulo est√° no intervalo [0, 360)
 		if (angle < 0) {
 			angle += 360.0f;
 		}
 
-		// calcular a dist‚ncia entre os pontos
+		// calcular a dist√¢ncia entre os pontos
 		float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
 
-		// se houver uma dist‚ncia, mova o objeto
+		// se houver uma dist√¢ncia, mova o objeto
 		if (distance > 0) {
-			// normalizar a direÁ„o
+			// normalizar a dire√ß√£o
 			float directionX = deltaX / distance;
 			float directionY = deltaY / distance;
 
@@ -224,10 +224,10 @@ void TowerPower::Update() {
 
 		float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
 		
-		// calcular o ‚ngulo em graus
+		// calcular o √¢ngulo em graus
 		float angle = atan2(deltaY, deltaX) * (180.0f / 3.1415926535);
 
-		// garantir que o ‚ngulo est· no intervalo [0, 360)
+		// garantir que o √¢ngulo est√° no intervalo [0, 360)
 		if (angle < 0) {
 			angle += 360.0f;
 		}

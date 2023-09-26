@@ -197,6 +197,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TelaFinal.cpp" />
     <ClCompile Include="TelaInicio.cpp" />
+    <ClCompile Include="TelaVitoria.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TelaFinal.h" />
     <ClInclude Include="TelaInicio.h" />
+    <ClInclude Include="TelaVitoria.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="Timer.h" />

@@ -27,7 +27,8 @@ enum SoundsIntro {
 	MAGICSPELL,
 	WINDSPELL,
 	DIVINESPELL,
-	MORENO
+	MORENO,
+	GAMEWIN
 };
 
 enum ObjectType {

@@ -8,6 +8,7 @@
 #include "Floor.h"
 #include "Grass.h"
 #include "TelaFinal.h"
+#include "TelaVitoria.h"
 
 
 std::random_device rd;
@@ -56,7 +57,7 @@ void Level2::Init() {
 	rainTimerStarter = true;
 
     // ----------------------------------
-    //        Definição de rota
+    //        DefiniÃ§Ã£o de rota
     // ----------------------------------
     int posicaoX = -48;
     int posicaoY = 360;
@@ -176,11 +177,11 @@ void Level2::Init() {
     }
 
     // ------------------------------------------------------------------------------------
-    //                DEFINIÇÃO DOS DIRECTIONS POINTS PRA ESSA FASE
+    //                DEFINIÃ‡ÃƒO DOS DIRECTIONS POINTS PRA ESSA FASE
     // ------------------------------------------------------------------------------------
 
     DirectionPoint* point1 = new DirectionPoint(DOWN);
-    point1->MoveTo(window->CenterX() - 360, window->CenterY() + 20);    // -395 é bem no meio (do primeiro)
+    point1->MoveTo(window->CenterX() - 360, window->CenterY() + 20);    // -395 Ã© bem no meio (do primeiro)
     scene->Add(point1, STATIC);
 
     DirectionPoint* point2 = new DirectionPoint(RIGHT);
@@ -250,7 +251,7 @@ void Level2::Finalize() {
 void Level2::Update() {
 
 	// ----------------------------
-	// Ambientação da chuva
+	// AmbientaÃ§Ã£o da chuva
 	// ----------------------------
 
 	if (rainTimerStarter) {
@@ -260,7 +261,7 @@ void Level2::Update() {
 	else {
 		if (rainTimer.Elapsed(0.05)) {
 			Rain* rain = new Rain(tilesetRain, random(0, 2));
-			// é bom espalhar mais, definir mais intervalos mais fechados
+			// Ã© bom espalhar mais, definir mais intervalos mais fechados
 			rain->MoveTo(random(0, window->Width() + 500), 0);
 			scene->Add(rain, STATIC);
 
@@ -275,11 +276,7 @@ void Level2::Update() {
         TowerDefense::audios->Stop(LEVEL2);
         TowerDefense::NextLevel<TelaFinal>();
     }
-
-    if (window->KeyPress('2') || TowerDefense::pontos >= 100) {
-        TowerDefense::audios->Stop(LEVEL2);
-    }
-
+  
     // ----------------------------------
    //             Inimigos
    // ----------------------------------
@@ -330,6 +327,12 @@ void Level2::Update() {
             TowerDefense::spawnTimer.Reset();
         }
     }
+
+    if (window->KeyPress('V') || TowerDefense::pontos >= 100) {
+        TowerDefense::audios->Stop(LEVEL2);
+        TowerDefense::NextLevel<TelaVitoria>();
+    }
+
 }
 
 void Level2::Draw() {
