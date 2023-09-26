@@ -16,8 +16,8 @@ private:
 	uint stt = STAY;
 	Sprite* purpleBar;
 	Sprite* pinkBar;
-	int pinkX;
 public:
+	static int pinkX;
 	static bool lostLife;
 	static bool controler;
 	static int life;

@@ -197,6 +197,10 @@ void TowerPower::Update() {
 			MoveTo(dstX, dstY);
 		}
 
+		if (!canHit) {
+			firstEnemy = nullptr;
+		}
+
 		cdr--;
 	}
 
@@ -306,10 +310,6 @@ void TowerPower::OnCollision(Object* obj) {
 					}
 					canHit = false;
 				}
-			}
-
-			if (!canHit) {
-				firstEnemy = nullptr;
 			}
 
 			if (firstEnemy != nullptr) {

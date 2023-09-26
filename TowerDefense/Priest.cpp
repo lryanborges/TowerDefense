@@ -3,6 +3,7 @@
 bool Priest::controler = false;
 int Priest::life = 10;
 bool Priest::lostLife = false;
+int Priest::pinkX = 0;
 Priest::Priest() {
 
 	tileSet = new TileSet("Resources/priest.png", 219, 207, 16, 16);
