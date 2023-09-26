@@ -27,6 +27,8 @@ private:
 public:
 	static Scene* scene;
 
+	int random(int low, int high);
+
 	void Init();
 	void Update();
 	void Draw();

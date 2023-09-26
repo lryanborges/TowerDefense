@@ -103,7 +103,7 @@ void Tower::OnCollision(Object* obj) {
 				}
 
 				if (towerType == YELLOW) {
-					if (firstHit || yellowAtackTimer.Elapsed(2.0f)) {
+					if ((firstHit || yellowAtackTimer.Elapsed(5.0f)) && (enemy->State() < DEATH || enemy->State() > DEAD)) {
 						TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), YELLOW);
 						TowerDefense::scene->Add(power, MOVING);
 						yellowAtackTimer.Reset();
@@ -112,7 +112,7 @@ void Tower::OnCollision(Object* obj) {
 				}
 
 				if (towerType == BLUE) {
-					if (firstHit || blueAtackTimer.Elapsed(3.0f)) {
+					if ((firstHit || blueAtackTimer.Elapsed(2.0f)) && (enemy->State() < DEATH || enemy->State() > DEAD)) {
 						TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), BLUE);
 						TowerDefense::scene->Add(power, MOVING);
 						blueAtackTimer.Reset();
@@ -122,7 +122,7 @@ void Tower::OnCollision(Object* obj) {
 				}
 
 				if (towerType == RED) {
-					if (firstHit || greenAtackTimer.Elapsed(3.0f)) {
+					if ((firstHit || greenAtackTimer.Elapsed(2.0f)) && (enemy->State() < DEATH || enemy->State() > DEAD)) {
 						TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), RED);
 						TowerDefense::scene->Add(power, MOVING);
 						greenAtackTimer.Reset();
@@ -132,7 +132,7 @@ void Tower::OnCollision(Object* obj) {
 				}
 
 				if (towerType == PURPLE) {
-					if (firstHit || greenAtackTimer.Elapsed(3.0f)) {
+					if ((firstHit || greenAtackTimer.Elapsed(2.0f)) && (enemy->State() < DEATH || enemy->State() > DEAD)) {
 						TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), PURPLE);
 						TowerDefense::scene->Add(power, MOVING);
 						greenAtackTimer.Reset();

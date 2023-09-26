@@ -31,15 +31,16 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 		animation->Add(YELLOWNORMAL, yellownormal, 7);
 		animation->Add(YELLOWEXPLOSION, yellowexplosion, 14);
 
+		canHit = true;
 		powerState = YELLOWNORMAL;
-		vel = 150;
+		vel = 80;
 		type = POWERYELLOW;
 		BBox(new Rect(-14, -20, 13, 5));
 	}
 
 	if (towerType == BLUE) {
 		tileset = new TileSet("Resources/powerBlue.png", 100, 100, 12, 12);
-		animation = new Animation(tileset, 0.2f, false);
+		animation = new Animation(tileset, 0.05f, false);
 
 		vel = 0;
 		type = POWERBLUE;
@@ -273,13 +274,10 @@ void TowerPower::OnCollision(Object* obj) {
 
 			enemies.insert(enemy);
 
-			if (animation->Frame() >= 12) {
-				if (canHit) {
+			if (animation->Frame() >= 6) {
 					for (const auto& en : enemies) {
 						en->life--;
 					}
-					canHit = false;
-				}
 			}
 		}
 
@@ -310,7 +308,9 @@ void TowerPower::OnCollision(Object* obj) {
 			}
 
 			if (firstEnemy != nullptr) {
-				MoveTo(firstEnemy->X(), firstEnemy->Y());
+				if (canHit) {
+					MoveTo(firstEnemy->X(), firstEnemy->Y());
+				}
 			}
 			
 		}
@@ -343,12 +343,15 @@ void TowerPower::OnCollision(Object* obj) {
 
 			enemies.insert(enemy);
 
+			if (hitedTimer.Elapsed(2.0)) {
+				canHit = true;
+			}
 			if (animation->Frame() == 1) {
 				if (canHit) {
-					for (const auto& en : enemies) {
-						en->life--;
-					}
+					enemy->life--;
+					enemies.clear();
 					canHit = false;
+					hitedTimer.Reset();
 				}
 			}
 		}
