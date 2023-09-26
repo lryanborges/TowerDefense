@@ -19,7 +19,7 @@ Button::Button(int b){
 		iconD = new Image("Resources/button/icon2D.png");
 		iconB = new Image("Resources/button/icon2B.png");
 		button = new Sprite(iconD);
-		price = 10;
+		price = 15;
 		break;
 	case BLUEB:
 		iconA = new Image("Resources/button/icon3A.png");
@@ -87,17 +87,17 @@ Button::~Button()
 }
 
 void Button::Update(){
-	if (Mouse::carrying) {
+	/*if (Mouse::carrying) {
 		button = new Sprite(iconA);
-	}
-	else {
+	} 
+	else {*/
 		if (TowerDefense::souls >= price) {
 			button = new Sprite(iconD);
 		}
 		if (TowerDefense::souls < price) {
 			button = new Sprite(iconB);
 		}
-	}
+	//}
 }
 
 void Button::Draw(){

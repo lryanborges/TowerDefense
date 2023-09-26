@@ -53,13 +53,6 @@ void Level2::Init() {
 	scene->Add(button4, STATIC);
 	scene->Add(button5, STATIC);
 
-	Enemy* brocolis = new Enemy(tilesetBrocolis, BROCOLIS, 2);
-	scene->Add(brocolis, MOVING);
-
-    Enemy* milho = new Enemy(tilesetMilho, MILHO, 2);
-    scene->Add(milho, MOVING);
-    milho->MoveTo(-50, window->CenterY() + 20);
-
 	rainTimerStarter = true;
 
     // ----------------------------------
@@ -277,11 +270,65 @@ void Level2::Update() {
 	}
 
 	scene->Update();
-    scene->DrawBBox();
 	scene->CollisionDetection();
-    if (window->KeyPress('M')) {
+    if (window->KeyPress('M') || Priest::life <= 0) {
         TowerDefense::audios->Stop(LEVEL2);
         TowerDefense::NextLevel<TelaFinal>();
+    }
+
+    if (window->KeyPress('2') || TowerDefense::pontos >= 100) {
+        TowerDefense::audios->Stop(LEVEL2);
+    }
+
+    // ----------------------------------
+   //             Inimigos
+   // ----------------------------------
+
+
+    if (TowerDefense::spawnTimer.Elapsed(10.0)) {
+        int spawX = -50;
+        for (int i = 0; i < 10; i++) {
+            int num = random(0, 8);
+
+            TileSet* tlset = nullptr;
+
+            switch (num) {
+            case 0:
+                tlset = tilesetCenoura;
+                break;
+            case 1:
+                tlset = tilesetBatata;
+                break;
+            case 2:
+                tlset = tilesetCebola;
+                break;
+            case 3:
+                tlset = tilesetNabo;
+                break;
+            case 4:
+                tlset = tilesetBrocolis;
+                break;
+            case 5:
+                tlset = tilesetCheiroVerde;
+                break;
+            case 6:
+                tlset = tilesetMilho;
+                break;
+            case 7:
+                tlset = tilesetAlface;
+                break;
+            case 8:
+                tlset = tilesetCouveFlor;
+                break;
+            }
+
+            Enemy* enemy = new Enemy(tlset, num, 2);
+            enemy->MoveTo(spawX, window->CenterY() + 20);
+            spawX += -80;
+            scene->Add(enemy, MOVING);
+
+            TowerDefense::spawnTimer.Reset();
+        }
     }
 }
 

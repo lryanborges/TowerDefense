@@ -201,6 +201,14 @@ void TowerPower::Update() {
 			firstEnemy = nullptr;
 		}
 
+		if (firstEnemy != nullptr) {
+			if (canHit) {
+				if (firstEnemy != nullptr) {
+					//MoveTo(firstEnemy->X(), firstEnemy->Y());
+				}
+			}
+		}
+
 		cdr--;
 	}
 
@@ -309,12 +317,6 @@ void TowerPower::OnCollision(Object* obj) {
 						en->life--;
 					}
 					canHit = false;
-				}
-			}
-
-			if (firstEnemy != nullptr) {
-				if (canHit) {
-					MoveTo(firstEnemy->X(), firstEnemy->Y());
 				}
 			}
 			
