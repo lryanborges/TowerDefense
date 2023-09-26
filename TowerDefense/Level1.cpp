@@ -42,11 +42,6 @@ void Level1::Init() {
     scene->Add(button5, STATIC);
 
     // ----------------------------------
-    //          Ambientação
-    // ----------------------------------
-    Grass* ambientation = new Grass(143, 393, 8); scene->Add(ambientation, STATIC);
-
-    // ----------------------------------
     //        Definição de rota
     // ----------------------------------
     int posicaoX = -48;
@@ -131,7 +126,7 @@ void Level1::Init() {
     }
 
     // ----------------------------------
-    //        Resto dos pisos
+    //   Resto dos pisos e Ambientação
     // ----------------------------------
     Sprite* flowerFloor = new Sprite("Resources/flowerGround.png");
     Sprite* basicFloor = new Sprite("Resources/basicGround.png");
@@ -145,6 +140,28 @@ void Level1::Init() {
         }
         else {
             chao = new Floor(basicFloor, posicaoX, posicaoY, true);
+        }
+        if (i == 80 || i == 35) {
+            Grass* plate = new Grass(posicaoX, posicaoY, 20);
+            TowerDefense::scene->Add(plate, STATIC);
+        }
+        if (i == 100 || i == 11) {
+            Grass* bush = new Grass(posicaoX, posicaoY + 8, 12);
+            TowerDefense::scene->Add(bush, STATIC);
+        }
+        if (i == 116) {
+            Grass* bush = new Grass(posicaoX - 12, posicaoY + 8, 13);
+            TowerDefense::scene->Add(bush, STATIC);
+            bush = new Grass(posicaoX + 16, posicaoY + 10, 14);
+            TowerDefense::scene->Add(bush, STATIC);
+        }
+        if (i == 140) {
+            Grass* tree = new Grass(posicaoX, posicaoY - 24, 10);
+            TowerDefense::scene->Add(tree, STATIC);
+        }
+        if (i == 127) {
+            Grass* tree = new Grass(posicaoX, posicaoY - 24, 9);
+            TowerDefense::scene->Add(tree, STATIC);
         }
         scene->Add(chao, STATIC);
         posicaoX = posicaoX + n68;
@@ -210,6 +227,10 @@ void Level1::Init() {
 
     /*Enemy* enemy = new Enemy(tilesetBatata, BATATA);
     scene->Add(enemy, MOVING);*/
+    
+    // ----------------------------------
+    //             Inimigos
+    // ----------------------------------
 
     Enemy* couveflor = new Enemy(tilesetCouveFlor, COUVEFLOR);
     scene->Add(couveflor, MOVING);
@@ -229,6 +250,8 @@ void Level1::Init() {
     /*Enemy* brocolis = new Enemy(tilesetBrocolis, BROCOLIS);
     scene->Add(brocolis, MOVING);
     brocolis->MoveTo(window->CenterX(), window->CenterY());*/
+
+    TowerDefense::spawnTimer.Start();
 }
 
 void Level1::Finalize() {
@@ -261,6 +284,14 @@ void Level1::Update() {
         scene->Update();
         scene->CollisionDetection();
         scene->DrawBBox();
+    }
+
+    if (TowerDefense::spawnTimer.Elapsed(10.0)) {
+        Enemy* cenoura2 = new Enemy(tilesetCenoura, CENOURA);
+        cenoura2->MoveTo(-150, window->CenterY() + 20);
+        scene->Add(cenoura2, MOVING);
+
+        TowerDefense::spawnTimer.Reset();
     }
 }
 

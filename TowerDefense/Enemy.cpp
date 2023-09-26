@@ -4,7 +4,7 @@
 #include "Tower.h"
 #include "TowerPower.h"
 
-Enemy::Enemy(TileSet* tset, uint enType = 0) {
+Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 
 	tileset = tset;
 	enemyType = enType;
@@ -55,6 +55,13 @@ Enemy::Enemy(TileSet* tset, uint enType = 0) {
 	BBox(new Rect(-20, -16, 19, 19));
 
 	MoveTo(0, window->CenterY() + 20);
+
+	if (nivel == 1) {
+		// tamanho normal
+	}
+	else if (nivel == 2) {
+		ScaleTo(1.7f);
+	}
 
 	hited = false;
 	type = ENEMY;
@@ -127,7 +134,7 @@ void Enemy::Update() {
 	animation->Select(state);
 	animation->NextFrame();
 
-	if (x + tileset->TileWidth() / 2.0f > window->Width()) {
+	if (x - tileset->TileWidth() / 2.0f > window->Width()) {
 		Priest::life--;
 		Priest::lostLife = true;
 		TowerDefense::scene->Delete();
