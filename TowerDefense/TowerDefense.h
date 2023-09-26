@@ -27,7 +27,8 @@ enum SoundsIntro {
 	MAGICSPELL,
 	WINDSPELL,
 	DIVINESPELL,
-	MORENO
+	MORENO,
+	GAMEWIN
 };
 
 enum ObjectType {
@@ -63,6 +64,7 @@ public:
 	static int souls;
 	static Font* placar;
 	static Timer spawnTimer;
+	static int pontos;
 
 	void Init();
 	void Update();

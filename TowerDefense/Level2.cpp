@@ -8,6 +8,7 @@
 #include "Floor.h"
 #include "Grass.h"
 #include "TelaFinal.h"
+#include "TelaVitoria.h"
 
 
 std::random_device rd;
@@ -279,10 +280,15 @@ void Level2::Update() {
 	scene->Update();
     scene->DrawBBox();
 	scene->CollisionDetection();
-    if (window->KeyPress('M')) {
+    if (window->KeyPress('M') || Priest::life <= 0) {
         TowerDefense::audios->Stop(LEVEL2);
         TowerDefense::NextLevel<TelaFinal>();
     }
+    if (window->KeyPress('V') || TowerDefense::pontos >= 100) {
+        TowerDefense::audios->Stop(LEVEL2);
+        TowerDefense::NextLevel<TelaVitoria>();
+    }
+
 }
 
 void Level2::Draw() {

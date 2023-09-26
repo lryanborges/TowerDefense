@@ -13,6 +13,7 @@ void TelaInicio::Init()
 	text = new Font("Resources/text.png");
 	text->Spacing(65);
 
+	TowerDefense::pontos = 0;
 }
 
 void TelaInicio::Update(){

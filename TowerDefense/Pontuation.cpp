@@ -33,10 +33,10 @@ void Pontuation::Draw() {
     pointsBar->Draw(window->CenterX(), window->CenterY() - 30, Layer::LOWER);
     Color white(1.0f, 1.0f, 1.0f, 1.0f);
     Color black(0.0f, 0.0f, 0.0f, 1.0f);
-    string souls = std::to_string(TowerDefense::souls);
+    string pontos = std::to_string(TowerDefense::pontos);
     TowerDefense::placar->Spacing(72);
-    TowerDefense::placar->Draw(window->CenterX() - 152, window->CenterY() - 120, "Almas libertas: " + souls, white, Layer::FRONT - 0.002f, 0.25f);
-    TowerDefense::placar->Draw(window->CenterX() - 150, window->CenterY() - 120, "Almas libertas: " + souls, black, Layer::UPPER - 0.002f, 0.25f);
+    TowerDefense::placar->Draw(window->CenterX() - 152, window->CenterY() - 120, "Almas libertas: " + pontos, white, Layer::FRONT - 0.002f, 0.25f);
+    TowerDefense::placar->Draw(window->CenterX() - 150, window->CenterY() - 120, "Almas libertas: " + pontos, black, Layer::UPPER - 0.002f, 0.25f);
     soul->Draw(window->CenterX() - 180, window->CenterY() - 118), Layer::FRONT;
 
     TowerDefense::placar->Draw(window->CenterX() - 142, window->CenterY() - 60, "Began to rain...", white, Layer::FRONT - 0.002f, 0.25f);

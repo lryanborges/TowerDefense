@@ -9,6 +9,7 @@
 #include "Level2.h"
 #include <random>
 #include "Pontuation.h"
+#include "TelaFinal.h"
 
 std::random_device rande;
 std::mt19937 gener(rande());
@@ -37,6 +38,8 @@ void Level1::Init() {
     if (TowerDefense::souls < 10) {
         TowerDefense::souls = 10;
     }
+
+    Priest::life = 10;
 
     Button* button1 = new Button(REDB);
     Button* button2 = new Button(PURPLEB);
@@ -266,19 +269,27 @@ void Level1::Finalize() {
 
 void Level1::Update() {
 
-    if (window->KeyPress('2')) {
+    scene->Update();
+    scene->CollisionDetection();
+    scene->DrawBBox();
+
+    if (window->KeyPress('M') || Priest::life <= 0) {
+        TowerDefense::audios->Stop(MAIN);
+        TowerDefense::NextLevel<TelaFinal>();
+    }
+
+    if (window->KeyPress('2') || TowerDefense::pontos >= 50) {
         TowerDefense::audios->Stop(MAIN);
         TowerDefense::NextLevel<Pontuation>();
     }
-    else {
-        scene->Update();
-        scene->CollisionDetection();
-        scene->DrawBBox();
+
+    if (TowerDefense::pontos >= 50) {
+        TowerDefense::spawnTimer.Reset();
     }
 
     // ----------------------------------
-//             Inimigos
-// ----------------------------------
+    //             Inimigos
+    // ----------------------------------
 
 
     if (TowerDefense::spawnTimer.Elapsed(10.0)) {

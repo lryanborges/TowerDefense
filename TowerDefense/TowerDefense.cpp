@@ -23,10 +23,12 @@ Priest* TowerDefense::priest = nullptr;
 int TowerDefense::souls = 10;
 Font* TowerDefense::placar = nullptr;
 Timer TowerDefense::spawnTimer;
+int TowerDefense::pontos = 0;
 void TowerDefense::Init() {
 
     audios = new Audio();
     audios->Add(INTRO, "Resources/intro.wav");
+    audios->Add(GAMEWIN, "Resources/win.wav");
     audios->Add(MAIN, "Resources/main.wav");
     audios->Add(LEVEL2, "Resources/level2.wav");
     audios->Add(TOWERSET, "Resources/tower.wav", 2);
@@ -46,7 +48,7 @@ void TowerDefense::Init() {
     audios->Volume(MAGICSPELL, 0.08f);
     audios->Volume(DIVINESPELL, 0.08f);
     audios->Volume(WINDSPELL, 0.08f);
-
+    audios->Volume(GAMEWIN, 0.08f);
     audios->Volume(INTRO, 0.08f);
     audios->Volume(LEVEL2, 0.08f);
     audios->Volume(TOWERSET, 3.0f);
