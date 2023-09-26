@@ -1,6 +1,7 @@
 #include"Object.h"
 #include "Animation.h"
 #include "TileSet.h"
+#include "Sprite.h"
 
 enum priestState {
 	STAY,
@@ -13,8 +14,13 @@ private:
 	int fm = 0;
 	bool state = true;
 	uint stt = STAY;
+	Sprite* purpleBar;
+	Sprite* pinkBar;
+	int pinkX;
 public:
+	static bool lostLife;
 	static bool controler;
+	static int life;
 
 	Priest();
 	~Priest();
@@ -24,10 +30,6 @@ public:
 
 };
 
-
-inline void Priest::Draw() {
-	animation->Draw(x, y, Layer::FRONT);
-}
 
 inline void Priest::OnCollision(Object* obj)
 {

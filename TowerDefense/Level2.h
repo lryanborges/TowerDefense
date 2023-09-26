@@ -9,6 +9,7 @@
 class Level2 : public Game {
 private:
 	Sprite* ground;
+	Sprite* floor;
 	TileSet* tilesetRain;
 	Timer rainTimer;
 	bool rainTimerStarter;

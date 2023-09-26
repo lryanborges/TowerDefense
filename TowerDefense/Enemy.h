@@ -50,6 +50,7 @@ private:
 
 public:
 	bool hited;
+	bool canBeHited;
 	int life;
 	
 	uint State();

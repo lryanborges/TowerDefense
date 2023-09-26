@@ -9,7 +9,8 @@
 #include "Mouse.h"
 #include "Hub.h"
 #include "Audio.h"
-
+#include "Priest.h"
+#include "Font.h"
 enum SoundsIntro {
 	INTRO,
 	TOWERSET,
@@ -33,7 +34,8 @@ enum ObjectType {
 	TOWERBLUE,
 	BUTTON, 
 	PRIEST,
-	HUB
+	HUB,
+	GRASS
 };
 
 class TowerDefense : public Game {
@@ -45,6 +47,9 @@ public:
 	static Scene* scene;
 	static Mouse* mouse;
 	static Hub* hub;
+	static Priest* priest;
+	static int souls;
+	static Font* placar;
 
 	void Init();
 	void Update();
