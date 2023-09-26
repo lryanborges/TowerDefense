@@ -3,6 +3,7 @@
 #include <math.h>
 #include "Enemy.h"
 #include "Tower.h"
+#include <cmath>
 
 int TowerPower::cdr;
 TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
@@ -30,6 +31,7 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 		animation->Add(YELLOWNORMAL, yellownormal, 7);
 		animation->Add(YELLOWEXPLOSION, yellowexplosion, 14);
 
+		powerState = YELLOWNORMAL;
 		vel = 150;
 		type = POWERYELLOW;
 		BBox(new Rect(-14, -20, 13, 5));
@@ -37,7 +39,7 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 
 	if (towerType == BLUE) {
 		tileset = new TileSet("Resources/powerBlue.png", 100, 100, 12, 12);
-		animation = new Animation(tileset, 0.05f, false);
+		animation = new Animation(tileset, 0.2f, false);
 
 		vel = 0;
 		type = POWERBLUE;
@@ -45,6 +47,39 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 		BBox(new Circle(40));
 	}
 
+	if (towerType == RED) {
+		tileset = new TileSet("Resources/powerRed.png", 40, 35, 5, 5);
+		animation = new Animation(tileset, 0.1f, true);
+
+		uint redstart[2] = { 0, 1 };
+		uint rednormal[1] = { 1 };
+		uint redexplosion[3] = { 2, 3, 4 };
+
+		animation->Add(REDSTART, redstart, 2);
+		animation->Add(REDNORMAL, rednormal, 1);
+		animation->Add(REDEXPLOSION, redexplosion, 3);
+
+		powerState = REDSTART;
+		vel = 250;
+		type = POWERRED;
+		BBox(new Rect(-20, -17, 19, 17));
+	}
+
+	if (towerType == PURPLE) {
+		tileset = new TileSet("Resources/powerPurple.png", 95, 70, 5, 5);
+		animation = new Animation(tileset, 0.3f, true);
+
+		uint purplenormal[2] = { 0, 1 };
+		uint purplefinished[3] = { 2, 3, 4 };
+
+		animation->Add(PURPLENORMAL, purplenormal, 2);
+		animation->Add(PURPLEFINISHED, purplefinished, 3);
+
+		powerState = PURPLENORMAL;
+		vel = 0;
+		type = POWERPURPLE;
+		BBox(new Circle(50));
+	}
 
 	cdr = 50;
 
@@ -76,19 +111,31 @@ void TowerPower::Update() {
 
 	if (Type() == POWERGREEN) {
 
+		// calcular as diferenças em X e Y
 		float deltaX = dstX - imX;
 		float deltaY = dstY - imY;
 
+		// calcular o ângulo em graus
+		float angle = atan2(deltaY, deltaX) * (180.0f / 3.1415926535);
+
+		// garantir que o ângulo está no intervalo [0, 360)
+		if (angle < 0) {
+			angle += 360.0f;
+		}
+
+		// calcular a distância entre os pontos
 		float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
 
+		// se houver uma distância, mova o objeto
 		if (distance > 0) {
+			// normalizar a direção
 			float directionX = deltaX / distance;
 			float directionY = deltaY / distance;
 
-			RotateTo(180);
-
+			RotateTo(angle);
 			Translate(directionX * vel * gameTime, directionY * vel * gameTime);
 		}
+
 
 		// pra deletar os poderes caso saiam da tela
 		if (x + tileset->TileWidth() / 2.0f > window->Width())
@@ -146,7 +193,72 @@ void TowerPower::Update() {
 
 		cdr--;
 	}
+
+	if (Type() == POWERRED) {
+		animation->Select(powerState);
+
+		if (animation->Frame() == 1) {
+			powerState = REDNORMAL;
+		}
+
+		float deltaX = dstX - imX;
+		float deltaY = dstY - imY;
+
+		float distance = std::sqrt(deltaX * deltaX + deltaY * deltaY);
+		
+		// calcular o ângulo em graus
+		float angle = atan2(deltaY, deltaX) * (180.0f / 3.1415926535);
+
+		// garantir que o ângulo está no intervalo [0, 360)
+		if (angle < 0) {
+			angle += 360.0f;
+		}
+
+
+		if (distance > 0) {
+
+			float directionX = deltaX / distance;
+			float directionY = deltaY / distance;
+
+			float distanceToTravel = vel * gameTime, distance;
+
+			RotateTo(angle);
+			Translate(directionX * distanceToTravel, directionY * distanceToTravel);
+		}
+
+		if (animation->Frame() == 4) {
+			TowerDefense::scene->Delete();
+		}
+	}
+
+	if (Type() == POWERPURPLE) {
+		animation->Select(powerState);
+
+
+		if (contEnemy == 0) {
+			MoveTo(dstX, dstY);
+		}
+
+		if (hitedTimer.Elapsed(5.0)) {
+			powerState = PURPLEFINISHED;
+		}
+
+		if (Frame() == 4) {
+			TowerDefense::scene->Delete();
+		}
+
+	}
 	
+}
+
+void TowerPower::Draw() {
+	if (Type() == POWERPURPLE) {
+		animation->Draw(x, y, Layer::UPPER, 1.1, rotation);
+	}
+	else {
+		animation->Draw(x, y, Layer::FRONT, 1.1, rotation);
+	}
+
 }
 
 void TowerPower::OnCollision(Object* obj) {
@@ -159,8 +271,15 @@ void TowerPower::OnCollision(Object* obj) {
 			powerState = YELLOWEXPLOSION;
 			vel = 0;
 
-			if (animation->Frame() < 20) {
-				enemy->hited = true;
+			enemies.insert(enemy);
+
+			if (animation->Frame() >= 12) {
+				if (canHit) {
+					for (const auto& en : enemies) {
+						en->life--;
+					}
+					canHit = false;
+				}
 			}
 		}
 
@@ -174,11 +293,7 @@ void TowerPower::OnCollision(Object* obj) {
 			else {
 				contEnemy++;
 			}
-		
-			if (firstEnemy != nullptr) {
-				MoveTo(firstEnemy->X(), firstEnemy->Y());
-			}
-
+	
 			enemies.insert(enemy);
 
 			if (animation->Frame() == 10) {
@@ -189,7 +304,53 @@ void TowerPower::OnCollision(Object* obj) {
 					canHit = false;
 				}
 			}
+
+			if (!canHit) {
+				firstEnemy = nullptr;
+			}
+
+			if (firstEnemy != nullptr) {
+				MoveTo(firstEnemy->X(), firstEnemy->Y());
+			}
 			
+		}
+
+		if (Type() == POWERRED) {
+
+			powerState = REDEXPLOSION;
+
+			enemies.insert(enemy);
+
+				if (canHit) {
+					for (const auto& en : enemies) {
+						en->life--;	
+					}
+					canHit = false;
+				}
+			
+		}
+
+		if (Type() == POWERPURPLE) {
+
+			if (contEnemy == 0) {
+				hitedTimer.Start();
+				firstEnemy = enemy;
+				contEnemy++;
+			}
+			else {
+				contEnemy++;
+			}
+
+			enemies.insert(enemy);
+
+			if (animation->Frame() == 1) {
+				if (canHit) {
+					for (const auto& en : enemies) {
+						en->life--;
+					}
+					canHit = false;
+				}
+			}
 		}
 
 	}

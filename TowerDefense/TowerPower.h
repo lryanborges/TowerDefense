@@ -9,7 +9,12 @@
 
 enum PowerState {
 	YELLOWNORMAL,
-	YELLOWEXPLOSION
+	YELLOWEXPLOSION,
+	REDSTART,
+	REDNORMAL,
+	REDEXPLOSION,
+	PURPLENORMAL,
+	PURPLEFINISHED
 };
 
 class TowerPower : public Object {
@@ -18,7 +23,7 @@ private:
 
 	TileSet* tileset;
 	Animation* animation;
-	uint powerState = YELLOWNORMAL;
+	uint powerState;
 	int vel;
 	int dstX;
 	int dstY;
@@ -27,12 +32,12 @@ private:
 	Timer hitedTimer;
 	bool auxHit = false;
 	int contEnemy;
-	Enemy* firstEnemy;
 	std::unordered_set<Enemy*> enemies;
 
 public:
 	static int cdr;
 	bool canHit;
+	Enemy* firstEnemy;
 
 	int Frame();
 
@@ -44,10 +49,6 @@ public:
 	void OnCollision(Object* obj);
 
 };
-
-inline void TowerPower::Draw() {
-	animation->Draw(x, y, Layer::FRONT, 1.1, rotation);
-}
 
 inline int TowerPower::Frame() {
 	return animation->Frame();

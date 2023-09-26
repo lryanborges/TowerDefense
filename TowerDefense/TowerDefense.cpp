@@ -15,6 +15,9 @@ Game* TowerDefense::level = nullptr;
 Scene* TowerDefense::scene = nullptr;
 Mouse* TowerDefense::mouse = nullptr;
 Hub* TowerDefense::hub = nullptr;
+Priest* TowerDefense::priest = nullptr;
+int TowerDefense::souls = 3;
+Font* TowerDefense::placar = nullptr;
 
 void TowerDefense::Init() {
 
@@ -30,23 +33,20 @@ void TowerDefense::Init() {
     hub = new Hub();
     scene->Add(hub, STATIC);
 
-    Button* button1 = new Button(REDB);
-    Button* button2 = new Button(PURPLEB);
-    Button* button3 = new Button(BLUEB);
-    Button* button4 = new Button(YELLOWB);
-    Button* button5 = new Button(GREENB);
+    priest = new Priest();
+    scene->Add(priest, STATIC);
 
-    scene->Add(button1, STATIC);
-    scene->Add(button2, STATIC);
-    scene->Add(button3, STATIC);
-    scene->Add(button4, STATIC);
-    scene->Add(button5, STATIC);
+    placar = new Font("Resources/FixedSys30.png");
+    placar->Spacing(72);
 
 }
 
 void TowerDefense::Finalize() {
     level->Finalize();
+    delete priest;
+    delete hub;
     delete mouse;
+    delete placar;
     delete level;
 }
 

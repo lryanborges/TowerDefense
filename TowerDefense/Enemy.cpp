@@ -120,11 +120,18 @@ void Enemy::Update() {
 	} 
 
 	if (deathTime.Elapsed(2.0f) && state == DEAD) {
+		TowerDefense::souls++;
 		TowerDefense::scene->Delete();
 	}
 	
 	animation->Select(state);
 	animation->NextFrame();
+
+	if (x + tileset->TileWidth() / 2.0f > window->Width()) {
+		Priest::life--;
+		Priest::lostLife = true;
+		TowerDefense::scene->Delete();
+	}
 
 }
 

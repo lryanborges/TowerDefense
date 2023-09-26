@@ -12,10 +12,9 @@ enum MouseState {
 class Mouse : public Object {
 private:
 
-	uint state = PLENO;
-
 public:
-	bool carrying;
+	static uint state;
+	static bool carrying;
 	static Tower* towerCarry;
 
 	uint State();

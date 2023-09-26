@@ -20,6 +20,7 @@ private:
 	Image* iconD;
 	Image* iconB;
 	Sprite* button;
+	int price;
 public:
 	Button(int b);
 	~Button();

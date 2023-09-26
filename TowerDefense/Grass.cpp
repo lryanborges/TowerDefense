@@ -1,4 +1,5 @@
 #include "Grass.h"
+#include "TowerDefense.h"
 
 Grass::Grass(int posX, int posY, uint grassTp) {
 	if (grassTp == 1) {
@@ -34,7 +35,22 @@ Grass::Grass(int posX, int posY, uint grassTp) {
 	if (grassTp == 11) {
 		sprite = new Sprite("Resources/tree3.png");
 	}
+	if (grassTp == 40) {
+		sprite = new Sprite("Resources/tomb1.png");
+	}
+	if (grassTp == 41) {
+		sprite = new Sprite("Resources/tomb2.png");
+	}
+	if (grassTp == 42) {
+		sprite = new Sprite("Resources/tomb3.png");
+	}
 	MoveTo(posX, posY);
+
+	if (grassTp >= 40) {
+		BBox(new Rect(-16, -16, 15, 15));
+	}
+
+	type = GRASS;
 }
 
 Grass::~Grass() {
