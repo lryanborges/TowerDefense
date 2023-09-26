@@ -23,6 +23,10 @@ void Level1::Init() {
     ground = new Sprite("Resources/ground.png");
     floor = new Sprite("Resources/floor.png");
     scene = new Scene();
+    TowerDefense::scene = scene;
+    scene->Add(TowerDefense::mouse, MOVING);
+    scene->Add(TowerDefense::hub, STATIC);
+    scene->Add(TowerDefense::priest, STATIC);
 
     Button* button1 = new Button(REDB);
     Button* button2 = new Button(PURPLEB);
