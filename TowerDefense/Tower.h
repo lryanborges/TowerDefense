@@ -31,6 +31,7 @@ private:
 public:
 	int life;
 
+	uint tType();
 	int Height();
 	int Width();
 
@@ -49,4 +50,8 @@ inline int Tower::Height() {
 
 inline int Tower::Width() {
 	return sprite->Width();
+}
+
+inline uint Tower::tType() {
+	return towerType;
 }

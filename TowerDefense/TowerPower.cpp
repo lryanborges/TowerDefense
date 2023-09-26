@@ -358,7 +358,6 @@ void TowerPower::OnCollision(Object* obj) {
 					enemy->life--;
 					enemies.clear();
 					canHit = false;
-					hitedTimer.Reset();
 				}
 			}
 		}

@@ -295,6 +295,10 @@ void Level1::Update() {
         for (int i = 0; i < 10; i++) {
             int num = random(0, 8);
 
+            while (num == 7) {
+                num = random(0, 8);
+            }
+
             TileSet* tlset = nullptr;
 
             switch(num){
@@ -326,6 +330,7 @@ void Level1::Update() {
                 tlset = tilesetCouveFlor;
                 break;
             }
+
 
             Enemy* enemy = new Enemy(tlset, num);
             enemy->MoveTo(spawX, window->CenterY() + 20);

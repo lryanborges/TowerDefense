@@ -32,7 +32,8 @@ void TelaFinal::Draw(){
 	Color Black(0.0f, 0.0f, 0.0f, 1.0f);
 	Color White(1.0f, 1.0f, 1.0f, 1.0f);
 	Color Red(0.7f, 0.1f , 0.1f, 1);
-	text->Draw(180, 130, "You died!!", Black, Layer::UPPER, 1.0f);
+	text->Draw(180, 130, "You died!!", White, Layer::UPPER, 1.0f);
+	text->Draw(182, 130, "You died!!", Black, Layer::UPPER, 1.0f);
 	if (dw) {
 		text->Draw(200, 540, "PRESS SPACE TO RESTART THE GAME", White, Layer::UPPER, 0.3f);
 		text->Draw(202, 540, "PRESS SPACE TO RESTART THE GAME", Black, Layer::FRONT, 0.3f);
