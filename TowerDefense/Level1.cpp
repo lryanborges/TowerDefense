@@ -244,6 +244,7 @@ void Level1::Update() {
     if (window->KeyPress('2')) {
         TowerDefense::NextLevel<Level2>();
     }
+        TowerDefense::NextLevel<Level2>();
     else {
         scene->Update();
         scene->CollisionDetection();

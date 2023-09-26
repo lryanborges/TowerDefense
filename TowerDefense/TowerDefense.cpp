@@ -10,7 +10,9 @@
 #include "Mouse.h"
 #include "Level1.h"
 #include "Hub.h"
-
+#include "Level1.h"
+#include "TelaFinal.h"
+#include "TelaInicio.h"
 Game* TowerDefense::level = nullptr;
 Scene* TowerDefense::scene = nullptr;
 Mouse* TowerDefense::mouse = nullptr;
