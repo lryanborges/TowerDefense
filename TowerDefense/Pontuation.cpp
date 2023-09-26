@@ -6,7 +6,7 @@
 
 Scene* Pontuation::scene = nullptr;
 void Pontuation::Init() {
-
+    TowerDefense::audios->Play(TYPINGMACHINE,false);
     ground = new Sprite("Resources/ground.png");
     pointsBar = new Sprite("Resources/pointsBar.png");
     soul = new Sprite("Resources/soul.png");
@@ -23,7 +23,7 @@ void Pontuation::Update() {
     }
 
     if (window->KeyPress(VK_SPACE)) {
-        TowerDefense::audios->Stop(LEVEL2);
+        TowerDefense::audios->Stop(TYPINGMACHINE);
         TowerDefense::NextLevel<Level2>();
     }
 }
