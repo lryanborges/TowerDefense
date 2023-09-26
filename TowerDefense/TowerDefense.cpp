@@ -30,20 +30,22 @@ void TowerDefense::Init() {
     audios->Add(TOWERSET, "Resources/tower.wav");
 
 
-    level = new Level1();
+    level = new TelaInicio();
 
     level->Init();
 
-    scene = Level1::scene;
+    scene = TelaInicio::scene;
 
     mouse = new Mouse();
     scene->Add(mouse, MOVING);
 
     hub = new Hub();
     scene->Add(hub, STATIC);
+    scene->Remove(hub, STATIC);
 
     priest = new Priest();
     scene->Add(priest, STATIC);
+    scene->Remove(priest, STATIC);
 
     placar = new Font("Resources/FixedSys30.png");
     placar->Spacing(72);
