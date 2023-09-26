@@ -13,6 +13,11 @@ private:
 	TileSet* tilesetRain;
 	Timer rainTimer;
 	bool rainTimerStarter;
+	int frames = 0;
+	int ctFrames1 = 1600;
+	int ctFrames2 = 3000;
+	bool controlador1 = false;
+	bool controlador2 = false;
 
 	// TileSets mobs
 	TileSet* tilesetCenoura;

@@ -48,11 +48,12 @@ void TowerDefense::Init() {
     audios->Volume(MAGICSPELL, 0.08f);
     audios->Volume(DIVINESPELL, 0.08f);
     audios->Volume(WINDSPELL, 0.08f);
+    audios->Volume(TYPINGMACHINE, 0.05f);
     audios->Volume(GAMEWIN, 0.08f);
     audios->Volume(INTRO, 0.08f);
     audios->Volume(LEVEL2, 0.08f);
     audios->Volume(TOWERSET, 3.0f);
-    audios->Volume(MAIN, 0.08f);
+    audios->Volume(MAIN, 0.05f);
     audios->Volume(GAMEOVER, 0.08f);
 
     level = new TelaInicio();
