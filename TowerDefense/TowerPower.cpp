@@ -245,7 +245,7 @@ void TowerPower::Update() {
 			MoveTo(dstX, dstY);
 		}
 
-		if (hitedTimer.Elapsed(5.0)) {
+		if (hitedTimer.Elapsed(3.0)) {
 			powerState = PURPLEFINISHED;
 		}
 

@@ -11,9 +11,14 @@ private:
 	Sprite* bg;
 	Sprite* ground;
 	Sprite* floor;
+	Sprite* pointsBar;
+	Sprite* soul;
 	TileSet* tilesetRain;
 	Timer rainTimer;
 	bool rainTimerStarter;
+	bool dw = false;
+	int fm = 0;
+	int mfm = 30;
 public:
 	static Scene* scene;
 
