@@ -34,6 +34,10 @@ void Level1::Init() {
     scene->Add(TowerDefense::hub, STATIC);
     scene->Add(TowerDefense::priest, STATIC);
 
+    if (TowerDefense::souls < 10) {
+        TowerDefense::souls = 10;
+    }
+
     Button* button1 = new Button(REDB);
     Button* button2 = new Button(PURPLEB);
     Button* button3 = new Button(BLUEB);

@@ -132,7 +132,7 @@ void Tower::OnCollision(Object* obj) {
 				}
 
 				if (towerType == PURPLE) {
-					if ((firstHit || greenAtackTimer.Elapsed(2.0f)) && (enemy->State() < DEATH || enemy->State() > DEAD)) {
+					if ((firstHit || greenAtackTimer.Elapsed(3.0f)) && (enemy->State() < DEATH || enemy->State() > DEAD)) {
 						TowerPower* power = new TowerPower(x, y, enemy->X(), enemy->Y(), PURPLE);
 						TowerDefense::scene->Add(power, MOVING);
 						greenAtackTimer.Reset();

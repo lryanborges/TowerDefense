@@ -11,6 +11,8 @@ private:
 	Sprite* bg;
 	Sprite* ground;
 	Sprite* floor;
+	Sprite* pointsBar;
+	Sprite* soul;
 	TileSet* tilesetRain;
 	Timer rainTimer;
 	bool rainTimerStarter;
