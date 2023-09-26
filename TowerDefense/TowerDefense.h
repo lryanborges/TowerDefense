@@ -8,6 +8,8 @@
 #include "Animation.h"
 #include "Mouse.h"
 #include "Hub.h"
+#include "Priest.h"
+#include "Font.h"
 
 enum ObjectType {
 	ENEMY,
@@ -25,7 +27,8 @@ enum ObjectType {
 	TOWERBLUE,
 	BUTTON, 
 	PRIEST,
-	HUB
+	HUB,
+	GRASS
 };
 
 class TowerDefense : public Game {
@@ -36,6 +39,9 @@ public:
 	static Scene* scene;
 	static Mouse* mouse;
 	static Hub* hub;
+	static Priest* priest;
+	static int souls;
+	static Font* placar;
 
 	void Init();
 	void Update();

@@ -1,12 +1,14 @@
 #include "Mouse.h"
 #include "TowerDefense.h"
 #include "Tower.h"
-#include "Priest.h"
 
 Tower* Mouse::towerCarry = nullptr;
+bool Mouse::carrying;
+uint Mouse::state = PLENO;
 Mouse::Mouse() {
 	MoveTo(window->MouseX(), window->MouseY());
 
+	state = PLENO;
 	carrying = false;
 	BBox(new Rect(-20, -20, 19, 19));
 	type = MOUSE;
@@ -18,6 +20,7 @@ Mouse::~Mouse() {
 
 void Mouse::Update() {
 
+	
 	if (carrying) {
 		towerCarry->MoveTo(x, y - (towerCarry->Height()) / 4);
 		if (window->KeyPress(VK_LBUTTON) && TowerDefense::mouse->State() != COLISAO) {
@@ -25,13 +28,14 @@ void Mouse::Update() {
 				Priest::controler = true;
 				carrying = false;
 				towerCarry->MoveTo(x, y - (towerCarry->Height()) / 4);
+				Mouse::towerCarry = nullptr;
 			}
-
 		}
 	}
+
 	state = PLENO;
 	MoveTo(window->MouseX(), window->MouseY());
-
+	
 }
 
 void Mouse::OnCollision(Object * obj) {
@@ -57,5 +61,9 @@ void Mouse::OnCollision(Object * obj) {
 
 	if (obj->Type() == BUTTON) {
 		state = PLENO;
+	}
+
+	if (obj->Type() == GRASS) {
+		state = COLISAO;
 	}
 }

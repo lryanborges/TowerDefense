@@ -10,6 +10,7 @@ private:
 	Image* image;
 	Sprite* sprite;
 	stringstream text;
+	Sprite* soul;
 
 public:
 	Hub();

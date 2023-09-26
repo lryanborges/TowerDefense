@@ -23,8 +23,19 @@ void Level1::Init() {
 
     ground = new Sprite("Resources/ground.png");
     floor = new Sprite("Resources/floor.png");
-    priest = new Priest();
     scene = new Scene();
+
+    Button* button1 = new Button(REDB);
+    Button* button2 = new Button(PURPLEB);
+    Button* button3 = new Button(BLUEB);
+    Button* button4 = new Button(YELLOWB);
+    Button* button5 = new Button(GREENB);
+
+    scene->Add(button1, STATIC);
+    scene->Add(button2, STATIC);
+    scene->Add(button3, STATIC);
+    scene->Add(button4, STATIC);
+    scene->Add(button5, STATIC);
 
     // ----------------------------------
     //          Ambientação
@@ -43,8 +54,7 @@ void Level1::Init() {
         chao = new Floor(floor, posicaoX, posicaoY);
         scene->Add(chao, STATIC);
     }
-    scene->Add(priest, STATIC);
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
         posicaoY = posicaoY - 68;
         chao = new Floor(floor, posicaoX, posicaoY);
         scene->Add(chao, STATIC);
@@ -80,7 +90,7 @@ void Level1::Init() {
         scene->Add(chao, STATIC);
     }
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
         posicaoY = posicaoY - 68;
         chao = new Floor(floor, posicaoX, posicaoY);
         scene->Add(chao, STATIC);
@@ -92,7 +102,7 @@ void Level1::Init() {
         scene->Add(chao, STATIC);
     }
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 4; i++) {
         posicaoY = posicaoY + 68;
         chao = new Floor(floor, posicaoX, posicaoY);
         scene->Add(chao, STATIC);
@@ -123,6 +133,7 @@ void Level1::Init() {
     Sprite* basicFloor = new Sprite("Resources/basicGround.png");
 
     int n68 = -68;
+    posicaoY = posicaoY + 68;
     posicaoX = posicaoX + 68;
     for (int i = 1; i <= 144; i++) {
         if (i == 3 || i == 22 || i == 36 || i == 51 || i == 55 || i == 58 || i == 66 || i == 78 || i == 86 || i == 91 || i == 101 || i == 121 || i == 131 || i == 132 || i == 140 || i == 143) {
@@ -148,27 +159,27 @@ void Level1::Init() {
     scene->Add(point1, STATIC);
 
     DirectionPoint* point2 = new DirectionPoint(RIGHT);
-    point2->MoveTo(window->CenterX() - 393, window->CenterY() - 150);
+    point2->MoveTo(window->CenterX() - 393, window->CenterY() - 218);
     scene->Add(point2, STATIC);
 
     DirectionPoint* point3 = new DirectionPoint(DOWN);
-    point3->MoveTo(window->CenterX() - 220, window->CenterY() - 115);
+    point3->MoveTo(window->CenterX() - 220, window->CenterY() - 183);
     scene->Add(point3, STATIC);
 
     DirectionPoint* point4 = new DirectionPoint(RIGHT);
-    point4->MoveTo(window->CenterX() - 258, window->CenterY() + 260);
+    point4->MoveTo(window->CenterX() - 258, window->CenterY() + 192);
     scene->Add(point4, STATIC);
 
     DirectionPoint* point5 = new DirectionPoint(UP);
-    point5->MoveTo(window->CenterX() - 88, window->CenterY() + 227);
+    point5->MoveTo(window->CenterX() - 88, window->CenterY() + 159);
     scene->Add(point5, STATIC);
 
     DirectionPoint* point6 = new DirectionPoint(RIGHT);
-    point6->MoveTo(window->CenterX() - 120, window->CenterY() - 80);
+    point6->MoveTo(window->CenterX() - 120, window->CenterY() - 148);
     scene->Add(point6, STATIC);
 
     DirectionPoint* point7 = new DirectionPoint(UP);
-    point7->MoveTo(window->CenterX() + 115, window->CenterY() - 47);
+    point7->MoveTo(window->CenterX() + 115, window->CenterY() - 115);
     scene->Add(point7, STATIC);
     
     DirectionPoint* point8 = new DirectionPoint(RIGHT);
@@ -180,15 +191,15 @@ void Level1::Init() {
     scene->Add(point9, STATIC);
 
     DirectionPoint* point10 = new DirectionPoint(LEFT);
-    point10->MoveTo(window->CenterX() + 287, window->CenterY() + 123);
+    point10->MoveTo(window->CenterX() + 287, window->CenterY() + 55);
     scene->Add(point10, STATIC);
 
     DirectionPoint* point11 = new DirectionPoint(DOWN);
-    point11->MoveTo(window->CenterX() + 50, window->CenterY() + 88);
+    point11->MoveTo(window->CenterX() + 50, window->CenterY() + 20);
     scene->Add(point11, STATIC);
 
     DirectionPoint* point12 = new DirectionPoint(RIGHT);
-    point12->MoveTo(window->CenterX() + 85, window->CenterY() + 260);
+    point12->MoveTo(window->CenterX() + 85, window->CenterY() + 192);
     scene->Add(point12, STATIC);
 
     // ------------------------------------------------------------------------------------
@@ -211,9 +222,6 @@ void Level1::Init() {
     cenoura2->MoveTo(-150, window->CenterY() + 20);
     scene->Add(cenoura2, MOVING);
 
-    Tower* tower = new Tower(GREEN);
-    scene->Add(tower, STATIC);
-
     /*Enemy* brocolis = new Enemy(tilesetBrocolis, BROCOLIS);
     scene->Add(brocolis, MOVING);
     brocolis->MoveTo(window->CenterX(), window->CenterY());*/
@@ -233,13 +241,13 @@ void Level1::Finalize() {
     delete flowerFloor;
     delete basicFloor;
     delete ground;
-    scene->Remove(TowerDefense::mouse, MOUSE);
-    scene->Remove(TowerDefense::hub, HUB);
+    scene->Remove(TowerDefense::mouse, MOVING);
+    scene->Remove(TowerDefense::hub, STATIC);
+    scene->Remove(TowerDefense::priest, STATIC);
     delete scene;
 }
 
 void Level1::Update() {
-
 
     if (window->KeyPress('2')) {
         TowerDefense::NextLevel<Level2>();

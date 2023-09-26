@@ -5,8 +5,6 @@
 #include "TileSet.h"
 #include "Animation.h"
 #include "Scene.h"
-#include "Priest.h"
-
 
 class Level1 : public Game {
 private:
@@ -26,7 +24,6 @@ private:
 	TileSet* tilesetMilho;
 	TileSet* tilesetAlface;
 	TileSet* tilesetCouveFlor;
-	Priest * priest;
 public:
 	static Scene* scene;
 

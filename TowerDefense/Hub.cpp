@@ -7,6 +7,7 @@ Hub::Hub()
 {	
 	image = new Image("Resources/Hub.png");
 	sprite = new Sprite(image);
+	soul = new Sprite("Resources/soul.png");
 
 	MoveTo(window->CenterX(), 640);
 
@@ -18,6 +19,7 @@ Hub::Hub()
 
 Hub::~Hub()
 {
+	delete soul;
 	delete image;
 	delete sprite;
 
@@ -29,8 +31,11 @@ void Hub::Update()
 
 void Hub::Draw()
 {
-	sprite->Draw(x ,y , Layer::UPPER);
-
+	sprite->Draw(x, y, Layer::UPPER);
+	soul->Draw(x, y + 7, Layer::UPPER - 0.1);
+	Color white(1.0f, 1.0f, 1.0f, 1.0f);
+	string qtdSouls = std::to_string(TowerDefense::souls);
+	TowerDefense::placar->Draw(x + 32, y + 4, qtdSouls, white, Layer::UPPER - 0.1f, 0.2f);
 }
 
 void Hub::OnCollision(Object* obj)
