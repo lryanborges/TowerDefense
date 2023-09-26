@@ -16,6 +16,9 @@ private:
 	TileSet* tilesetRain;
 	Timer rainTimer;
 	bool rainTimerStarter;
+	bool dw = false;
+	int fm = 0;
+	int mfm = 30;
 public:
 	static Scene* scene;
 
