@@ -307,6 +307,10 @@ void Level2::Update() {
         for (int i = 0; i < 10; i++) {
             int num = random(0, 8);
 
+            while (num == 7) {
+                num = random(0, 8);
+            }
+
             TileSet* tlset = nullptr;
 
             switch (num) {

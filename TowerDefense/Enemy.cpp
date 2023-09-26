@@ -31,7 +31,7 @@ Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 			life = 5;
 		}
 		if (nivel == 2) {
-			life = 7;
+			life = 6;
 		}
 	}
 	if (enemyType == COUVEFLOR) {
@@ -43,7 +43,7 @@ Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 			life = 3;
 		}
 		if (nivel == 2) {
-			life = 5;
+			life = 4;
 		}
 	}
 	if (enemyType == ALFACE) {
@@ -56,7 +56,7 @@ Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 			life = 7;
 		}
 		if (nivel == 2) {
-			life = 9;
+			life = 8;
 		}
 	}
 	if (enemyType == CENOURA) {
@@ -64,7 +64,7 @@ Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 			life = 2;
 		}
 		if (nivel == 2) {
-			life = 4;
+			life = 3;
 		}
 	}
 	if (enemyType == CHEIROVERDE) {
@@ -72,7 +72,7 @@ Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 			life = 1;
 		}
 		if (nivel == 2) {
-			life = 3;
+			life = 2;
 		}
 	}
 	if (enemyType == NABO) {
@@ -80,15 +80,15 @@ Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 			life = 1;
 		}
 		if (nivel == 2){
-			life = 3;
+			life = 2;
 		}
 	}
 	if (enemyType == BROCOLIS) {
 		if (nivel == 1) {
-			life = 4;
+			life = 6;
 		}
 		if (nivel == 2) {
-			life = 6;
+			life = 7;
 		}
 	}
 	if (enemyType == MILHO) {
@@ -96,7 +96,7 @@ Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 			life = 3;
 		}
 		if (nivel == 2) {
-			life = 5;
+			life = 4;
 		}
 	}
 	if (enemyType == CEBOLA) {
@@ -104,7 +104,7 @@ Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 			life = 2;
 		}
 		if (nivel == 2) {
-			life = 4;
+			life = 3;
 		}
 	}
 	

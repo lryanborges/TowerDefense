@@ -32,6 +32,27 @@ void Mouse::Update() {
 				Mouse::towerCarry = nullptr;
 			}
 		}
+		if (window->KeyPress(VK_RBUTTON)) {
+			if (towerCarry->tType() == 0) {
+				TowerDefense::souls = TowerDefense::souls + 5;
+			}
+			if (towerCarry->tType() == 1) {
+				TowerDefense::souls = TowerDefense::souls + 3;
+			}
+			if (towerCarry->tType() == 2) {
+				TowerDefense::souls = TowerDefense::souls + 20;
+			}
+			if (towerCarry->tType() == 3) {
+				TowerDefense::souls = TowerDefense::souls + 10;
+			}
+			if (towerCarry->tType() == 4) {
+				TowerDefense::souls = TowerDefense::souls + 15;
+			}
+
+			carrying = false;
+			TowerDefense::scene->Delete(towerCarry, STATIC);
+			Mouse::towerCarry = nullptr;
+		}
 	}
 
 	state = PLENO;
