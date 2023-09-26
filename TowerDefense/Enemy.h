@@ -55,7 +55,7 @@ public:
 	
 	uint State();
 
-	Enemy(TileSet* tset, uint enType);
+	Enemy(TileSet* tset, uint enType, uint nivel = 1);
 	~Enemy();
 
 	void Update();
@@ -65,7 +65,7 @@ public:
 };
 
 inline void Enemy::Draw() {
-	animation->Draw(x, y, Layer::UPPER);
+	animation->Draw(x, y, Layer::UPPER, scale);
 }
 
 inline uint Enemy::State() {

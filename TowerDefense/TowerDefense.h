@@ -50,6 +50,7 @@ public:
 	static Priest* priest;
 	static int souls;
 	static Font* placar;
+	static Timer spawnTimer;
 
 	void Init();
 	void Update();

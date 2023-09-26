@@ -253,7 +253,7 @@ void TowerPower::Update() {
 
 void TowerPower::Draw() {
 	if (Type() == POWERPURPLE) {
-		animation->Draw(x, y, Layer::UPPER, 1.1, rotation);
+		animation->Draw(x, y, Layer::UPPER + 0.01, 1.1, rotation);
 	}
 	else {
 		animation->Draw(x, y, Layer::FRONT, 1.1, rotation);
