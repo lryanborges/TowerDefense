@@ -63,6 +63,7 @@ public:
 	static int souls;
 	static Font* placar;
 	static Timer spawnTimer;
+	static int pontos;
 
 	void Init();
 	void Update();

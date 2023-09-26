@@ -23,18 +23,28 @@ Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 	uint walking[8] = { 0, 1, 2, 3, 4, 5, 6, 7 };
 	uint atack[8] = { 8, 9, 10, 11, 12, 13, 14, 15 };
 	uint death[8] = { 16, 17, 18, 19, 20, 21, 22, 23 };
-	uint inverted[8] = {31, 30, 29, 28, 27, 26, 25, 24 };
+	uint inverted[8] = { 31, 30, 29, 28, 27, 26, 25, 24 };
 
 	if (enemyType == BATATA) {
 		walkSize = 6;
-		life = 5;
+		if (nivel == 1) {
+			life = 5;
+		}
+		if (nivel == 2) {
+			life = 7;
+		}
 	}
 	if (enemyType == COUVEFLOR) {
 		walkSize = 6;
 		deathSize = 6;
 		lastFrameDeath = 21;
 		lastFrameAtack = 13;
-		life = 3;
+		if (nivel == 1) {
+			life = 3;
+		}
+		if (nivel == 2) {
+			life = 5;
+		}
 	}
 	if (enemyType == ALFACE) {
 		walkSize = 6;
@@ -42,25 +52,60 @@ Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 		deathSize = 6;
 		lastFrameDeath = 21;
 		lastFrameAtack = 13;
-		life = 7;
+		if (nivel == 1) {
+			life = 7;
+		}
+		if (nivel == 2) {
+			life = 9;
+		}
 	}
 	if (enemyType == CENOURA) {
-		life = 2;
+		if (nivel == 1) {
+			life = 2;
+		}
+		if (nivel == 2) {
+			life = 4;
+		}
 	}
 	if (enemyType == CHEIROVERDE) {
-		life = 1;
+		if (nivel == 1) {
+			life = 1;
+		}
+		if (nivel == 2) {
+			life = 3;
+		}
 	}
 	if (enemyType == NABO) {
-		life = 1;
+		if (nivel == 1) {
+			life = 1;
+		}
+		if (nivel == 2){
+			life = 3;
+		}
 	}
 	if (enemyType == BROCOLIS) {
-		life = 4;
+		if (nivel == 1) {
+			life = 4;
+		}
+		if (nivel == 2) {
+			life = 6;
+		}
 	}
 	if (enemyType == MILHO) {
-		life = 3;
+		if (nivel == 1) {
+			life = 3;
+		}
+		if (nivel == 2) {
+			life = 5;
+		}
 	}
 	if (enemyType == CEBOLA) {
-		life = 2;
+		if (nivel == 1) {
+			life = 2;
+		}
+		if (nivel == 2) {
+			life = 4;
+		}
 	}
 	
 	animation = new Animation(tileset, 0.15f, true);
@@ -148,6 +193,7 @@ void Enemy::Update() {
 
 	if (deathTime.Elapsed(2.0f) && state == DEAD) {
 		TowerDefense::souls++;
+		TowerDefense::pontos++;
 		TowerDefense::scene->Delete();
 	}
 	
