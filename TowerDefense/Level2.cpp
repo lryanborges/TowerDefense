@@ -52,8 +52,12 @@ void Level2::Init() {
 	scene->Add(button4, STATIC);
 	scene->Add(button5, STATIC);
 
-	Enemy* brocolis = new Enemy(tilesetBrocolis, BROCOLIS);
+	Enemy* brocolis = new Enemy(tilesetBrocolis, BROCOLIS, 2);
 	scene->Add(brocolis, MOVING);
+
+    Enemy* milho = new Enemy(tilesetMilho, MILHO, 2);
+    scene->Add(milho, MOVING);
+    milho->MoveTo(-50, window->CenterY() + 20);
 
 	rainTimerStarter = true;
 
@@ -181,52 +185,52 @@ void Level2::Init() {
     //                DEFINIÇÃO DOS DIRECTIONS POINTS PRA ESSA FASE
     // ------------------------------------------------------------------------------------
 
-    DirectionPoint* point1 = new DirectionPoint(UP);
+    DirectionPoint* point1 = new DirectionPoint(DOWN);
     point1->MoveTo(window->CenterX() - 360, window->CenterY() + 20);    // -395 é bem no meio (do primeiro)
     scene->Add(point1, STATIC);
 
     DirectionPoint* point2 = new DirectionPoint(RIGHT);
-    point2->MoveTo(window->CenterX() - 393, window->CenterY() - 218);
+    point2->MoveTo(window->CenterX() - 394, window->CenterY() + 192);
     scene->Add(point2, STATIC);
 
-    DirectionPoint* point3 = new DirectionPoint(DOWN);
-    point3->MoveTo(window->CenterX() - 220, window->CenterY() - 183);
+    DirectionPoint* point3 = new DirectionPoint(UP);
+    point3->MoveTo(window->CenterX() - 88, window->CenterY() + 159);
     scene->Add(point3, STATIC);
 
-    DirectionPoint* point4 = new DirectionPoint(RIGHT);
-    point4->MoveTo(window->CenterX() - 258, window->CenterY() + 192);
+    DirectionPoint* point4 = new DirectionPoint(LEFT);
+    point4->MoveTo(window->CenterX() - 120, window->CenterY() - 148);
     scene->Add(point4, STATIC);
 
     DirectionPoint* point5 = new DirectionPoint(UP);
-    point5->MoveTo(window->CenterX() - 88, window->CenterY() + 159);
+    point5->MoveTo(window->CenterX() - 359, window->CenterY() - 116);
     scene->Add(point5, STATIC);
 
     DirectionPoint* point6 = new DirectionPoint(RIGHT);
-    point6->MoveTo(window->CenterX() - 120, window->CenterY() - 148);
+    point6->MoveTo( window->CenterX() - 322, window->CenterY() - 288);
     scene->Add(point6, STATIC);
 
-    DirectionPoint* point7 = new DirectionPoint(UP);
-    point7->MoveTo(window->CenterX() + 115, window->CenterY() - 115);
+    DirectionPoint* point7 = new DirectionPoint(DOWN);
+    point7->MoveTo(window->CenterX() + 49, window->CenterY() - 251);
     scene->Add(point7, STATIC);
 
     DirectionPoint* point8 = new DirectionPoint(RIGHT);
-    point8->MoveTo(window->CenterX() + 83, window->CenterY() - 285);
+    point8->MoveTo(window->CenterX() + 16, window->CenterY() - 14);
     scene->Add(point8, STATIC);
 
     DirectionPoint* point9 = new DirectionPoint(DOWN);
-    point9->MoveTo(window->CenterX() + 320, window->CenterY() - 252);
+    point9->MoveTo(window->CenterX() + 183, window->CenterY() - 47);
     scene->Add(point9, STATIC);
 
-    DirectionPoint* point10 = new DirectionPoint(LEFT);
-    point10->MoveTo(window->CenterX() + 287, window->CenterY() + 55);
+    DirectionPoint* point10 = new DirectionPoint(RIGHT);
+    point10->MoveTo(window->CenterX() + 149, window->CenterY() + 192);
     scene->Add(point10, STATIC);
 
-    DirectionPoint* point11 = new DirectionPoint(DOWN);
-    point11->MoveTo(window->CenterX() + 50, window->CenterY() + 20);
+    DirectionPoint* point11 = new DirectionPoint(UP);
+    point11->MoveTo(window->CenterX() + 389, window->CenterY() + 152);
     scene->Add(point11, STATIC);
 
     DirectionPoint* point12 = new DirectionPoint(RIGHT);
-    point12->MoveTo(window->CenterX() + 85, window->CenterY() + 192);
+    point12->MoveTo(window->CenterX() + 354, window->CenterY() - 218);
     scene->Add(point12, STATIC);
 
 }

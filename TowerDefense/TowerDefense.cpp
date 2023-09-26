@@ -22,7 +22,7 @@ Hub* TowerDefense::hub = nullptr;
 Priest* TowerDefense::priest = nullptr;
 int TowerDefense::souls = 3;
 Font* TowerDefense::placar = nullptr;
-
+Timer TowerDefense::spawnTimer;
 void TowerDefense::Init() {
 
     audios = new Audio();
