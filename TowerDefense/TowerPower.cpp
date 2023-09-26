@@ -12,6 +12,7 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 	vel = 300;
 
 	if (towerType == GREEN) {
+		TowerDefense::audios->Play(WINDSPELL, false);
 		tileset = new TileSet("Resources/powerGreen.png", 36, 12, 3, 3);
 		animation = new Animation(tileset, 0.5f, true);
 
@@ -22,6 +23,7 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 	}
 
 	if (towerType == YELLOW) {
+		TowerDefense::audios->Play(DIVINESPELL, false);
 		tileset = new TileSet("Resources/powerYellow.png", 101, 60, 7, 21);
 		animation = new Animation(tileset, 0.1f, false);
 
@@ -39,6 +41,7 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 	}
 
 	if (towerType == BLUE) {
+		TowerDefense::audios->Play(FREEZESPELL, false);
 		tileset = new TileSet("Resources/powerBlue.png", 100, 100, 12, 12);
 		animation = new Animation(tileset, 0.05f, false);
 
@@ -49,6 +52,7 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 	}
 
 	if (towerType == RED) {
+		TowerDefense::audios->Play(FIRESPELL, false);
 		tileset = new TileSet("Resources/powerRed.png", 40, 35, 5, 5);
 		animation = new Animation(tileset, 0.1f, true);
 
@@ -67,6 +71,7 @@ TowerPower::TowerPower(int posX, int posY, int toX, int toY, uint twrType) {
 	}
 
 	if (towerType == PURPLE) {
+		TowerDefense::audios->Play(MAGICSPELL, false);
 		tileset = new TileSet("Resources/powerPurple.png", 95, 70, 5, 5);
 		animation = new Animation(tileset, 0.3f, true);
 

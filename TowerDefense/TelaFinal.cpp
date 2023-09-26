@@ -3,14 +3,18 @@
 #include "TelaInicio.h"
 
 void TelaFinal::Init(){
+	TowerDefense::audios->Play(GAMEOVER, false);
 	background = new Sprite("Resources/end.png");
 	text = new Font("Resources/text.png");
 	text->Spacing(65);
 }
 
 void TelaFinal::Update(){
-	if (window->KeyPress(VK_SPACE))
+	if (window->KeyPress(VK_SPACE)) {
+		TowerDefense::audios->Stop(GAMEOVER);
 		TowerDefense::NextLevel<TelaInicio>();
+	}
+		
 
 	if (!dw) {
 		fm++;

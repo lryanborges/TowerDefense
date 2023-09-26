@@ -188,6 +188,7 @@
     <ClCompile Include="Level2.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Pontuation.cpp" />
     <ClCompile Include="Priest.cpp" />
     <ClCompile Include="Rain.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="Level2.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Pontuation.h" />
     <ClInclude Include="Priest.h" />
     <ClInclude Include="Rain.h" />
     <ClInclude Include="Renderer.h" />

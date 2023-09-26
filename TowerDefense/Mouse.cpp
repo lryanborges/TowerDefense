@@ -25,6 +25,7 @@ void Mouse::Update() {
 		towerCarry->MoveTo(x, y - (towerCarry->Height()) / 4);
 		if (window->KeyPress(VK_LBUTTON) && TowerDefense::mouse->State() != COLISAO) {
 			if (state != COLISAO) {
+				TowerDefense::audios->Play(TOWERSET, false);
 				Priest::controler = true;
 				carrying = false;
 				towerCarry->MoveTo(x, y - (towerCarry->Height()) / 4);

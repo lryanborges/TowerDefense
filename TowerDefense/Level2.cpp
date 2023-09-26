@@ -7,6 +7,7 @@
 #include "Button.h"
 #include "Floor.h"
 #include "Grass.h"
+#include "TelaFinal.h"
 
 
 std::random_device rd;
@@ -14,7 +15,7 @@ std::mt19937 gen(rd());
 
 Scene* Level2::scene = nullptr;
 void Level2::Init() {
-
+    TowerDefense::audios->Play(LEVEL2, true);
 	tilesetCenoura = new TileSet("Resources/cenoura.png", 40, 50, 8, 30);
 	tilesetBatata = new TileSet("Resources/batata.png", 40, 50, 8, 30);
 	tilesetCebola = new TileSet("Resources/cebola.png", 40, 50, 8, 30);
@@ -275,10 +276,13 @@ void Level2::Update() {
 		}
 	}
 
-
 	scene->Update();
     scene->DrawBBox();
 	scene->CollisionDetection();
+    if (window->KeyPress('M')) {
+        TowerDefense::audios->Stop(LEVEL2);
+        TowerDefense::NextLevel<TelaFinal>();
+    }
 }
 
 void Level2::Draw() {

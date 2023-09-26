@@ -8,13 +8,14 @@
 #include "TowerDefense.h"
 #include "Level2.h"
 #include <random>
-
+#include "Pontuation.h"
 
 std::random_device rande;
 std::mt19937 gener(rande());
 
 Scene* Level1::scene = nullptr;
 void Level1::Init() {
+    TowerDefense::audios->Play(MAIN, true);
 	tilesetCenoura = new TileSet("Resources/cenoura.png", 40, 50, 8, 30);
     tilesetBatata = new TileSet("Resources/batata.png", 40, 50, 8, 30);
     tilesetCebola = new TileSet("Resources/cebola.png", 40, 50, 8, 30);
@@ -262,7 +263,8 @@ void Level1::Finalize() {
 void Level1::Update() {
 
     if (window->KeyPress('2')) {
-        TowerDefense::NextLevel<Level2>();
+        TowerDefense::audios->Stop(MAIN);
+        TowerDefense::NextLevel<Pontuation>();
     }
     else {
         scene->Update();
