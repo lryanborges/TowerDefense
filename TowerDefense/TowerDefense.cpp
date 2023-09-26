@@ -13,6 +13,8 @@
 #include "Level1.h"
 #include "TelaFinal.h"
 #include "TelaInicio.h"
+
+Audio * TowerDefense::audios = nullptr;
 Game* TowerDefense::level = nullptr;
 Scene* TowerDefense::scene = nullptr;
 Mouse* TowerDefense::mouse = nullptr;
@@ -22,6 +24,11 @@ int TowerDefense::souls = 3;
 Font* TowerDefense::placar = nullptr;
 
 void TowerDefense::Init() {
+
+    audios = new Audio();
+    audios->Add(INTRO, "Resources/intro.wav");
+    audios->Add(TOWERSET, "Resources/tower.wav");
+
 
     level = new Level1();
 
@@ -50,6 +57,7 @@ void TowerDefense::Finalize() {
     delete mouse;
     delete placar;
     delete level;
+    delete audios;
 }
 
 void TowerDefense::Update() {
