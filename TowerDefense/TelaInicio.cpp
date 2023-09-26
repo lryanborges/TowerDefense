@@ -25,6 +25,7 @@ void TelaInicio::Update(){
 	}
 
 	if (window->KeyPress(VK_SPACE)) {
+		TowerDefense::audios->Stop(INTRO);
 		TowerDefense::NextLevel<Level1>();
 	}
 }

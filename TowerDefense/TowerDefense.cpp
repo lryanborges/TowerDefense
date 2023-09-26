@@ -27,8 +27,31 @@ void TowerDefense::Init() {
 
     audios = new Audio();
     audios->Add(INTRO, "Resources/intro.wav");
-    audios->Add(TOWERSET, "Resources/tower.wav");
+    audios->Add(MAIN, "Resources/main.wav");
+    audios->Add(LEVEL2, "Resources/level2.wav");
+    audios->Add(TOWERSET, "Resources/tower.wav", 2);
+    audios->Add(GAMEOVER, "Resources/Game_Lose.wav");
+    audios->Add(ZOMBIE1, "Resources/zombie1.wav", 2);
+    audios->Add(ZOMBIE2, "Resources/zombie2.wav", 2);
+    audios->Add(BONES, "Resources/bones.wav", 2);
+    audios->Add(LAUGH, "Resources/laugh.wav", 2);
+    audios->Add(TYPINGMACHINE, "Resources/typing.wav", 2);
+    audios->Add(FIRESPELL, "Resources/fire.wav", 5);
+    audios->Add(FREEZESPELL, "Resources/freeze.wav", 5);
+    audios->Add(MAGICSPELL, "Resources/Spell.wav", 5);
+    audios->Add(DIVINESPELL, "Resources/divine.wav", 5);
+    audios->Add(WINDSPELL, "Resources/wind.wav", 5);
+    audios->Volume(FIRESPELL, 0.08f);
+    audios->Volume(FREEZESPELL, 0.08f);
+    audios->Volume(MAGICSPELL, 0.08f);
+    audios->Volume(DIVINESPELL, 0.08f);
+    audios->Volume(WINDSPELL, 0.08f);
 
+    audios->Volume(INTRO, 0.08f);
+    audios->Volume(LEVEL2, 0.08f);
+    audios->Volume(TOWERSET, 3.0f);
+    audios->Volume(MAIN, 0.08f);
+    audios->Volume(GAMEOVER, 0.08f);
 
     level = new TelaInicio();
 
