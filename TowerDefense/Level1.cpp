@@ -6,7 +6,12 @@
 #include "Enemy.h"
 #include "Tower.h"
 #include "TowerDefense.h"
+#include "Level2.h"
+#include <random>
 #include "Pontuation.h"
+
+std::random_device rande;
+std::mt19937 gener(rande());
 
 Scene* Level1::scene = nullptr;
 void Level1::Init() {
@@ -228,25 +233,6 @@ void Level1::Init() {
     /*Enemy* enemy = new Enemy(tilesetBatata, BATATA);
     scene->Add(enemy, MOVING);*/
     
-    // ----------------------------------
-    //             Inimigos
-    // ----------------------------------
-
-    Enemy* couveflor = new Enemy(tilesetCouveFlor, COUVEFLOR);
-    scene->Add(couveflor, MOVING);
-
-    Enemy* batata = new Enemy(tilesetBatata, BATATA);
-    batata->MoveTo(-50, window->CenterY() + 20);
-    scene->Add(batata, MOVING);
-
-    Enemy* cenoura  = new Enemy(tilesetCenoura, CENOURA);
-    cenoura->MoveTo(-100, window->CenterY() + 20);
-    scene->Add(cenoura, MOVING);
-
-    Enemy* cenoura2 = new Enemy(tilesetCenoura, CENOURA);
-    cenoura2->MoveTo(-150, window->CenterY() + 20);
-    scene->Add(cenoura2, MOVING);
-
     /*Enemy* brocolis = new Enemy(tilesetBrocolis, BROCOLIS);
     scene->Add(brocolis, MOVING);
     brocolis->MoveTo(window->CenterX(), window->CenterY());*/
@@ -286,16 +272,65 @@ void Level1::Update() {
         scene->DrawBBox();
     }
 
-    if (TowerDefense::spawnTimer.Elapsed(10.0)) {
-        Enemy* cenoura2 = new Enemy(tilesetCenoura, CENOURA);
-        cenoura2->MoveTo(-150, window->CenterY() + 20);
-        scene->Add(cenoura2, MOVING);
+    // ----------------------------------
+//             Inimigos
+// ----------------------------------
 
-        TowerDefense::spawnTimer.Reset();
+
+    if (TowerDefense::spawnTimer.Elapsed(10.0)) {
+        int spawX = -50;
+        for (int i = 0; i < 10; i++) {
+            int num = random(0, 8);
+
+            TileSet* tlset = nullptr;
+
+            switch(num){
+            case 0:
+                tlset = tilesetCenoura;
+                break;
+            case 1:
+                tlset = tilesetBatata;
+                break;
+            case 2:
+                tlset = tilesetCebola;
+                break;
+            case 3:
+                tlset = tilesetNabo;
+                break;
+            case 4:
+                tlset = tilesetBrocolis;
+                break;
+            case 5:
+                tlset = tilesetCheiroVerde;
+                break;
+            case 6:
+                tlset = tilesetMilho;
+                break;
+            case 7:
+                tlset = tilesetAlface;
+                break;
+            case 8:
+                tlset = tilesetCouveFlor;
+                break;
+            }
+
+            Enemy* enemy = new Enemy(tlset, num);
+            enemy->MoveTo(spawX, window->CenterY() + 20);
+            spawX += -50;
+            scene->Add(enemy, MOVING);
+
+            TowerDefense::spawnTimer.Reset();
+        }
     }
 }
 
 void Level1::Draw() {
     ground->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
     scene->Draw();
+}
+
+int Level1::random(int low, int high)
+{
+    std::uniform_int_distribution<> dist(low, high);
+    return dist(gener);
 }

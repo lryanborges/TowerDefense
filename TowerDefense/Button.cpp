@@ -12,35 +12,35 @@ Button::Button(int b){
 		iconD = new Image("Resources/button/icon1D.png");
 		iconA = new Image("Resources/button/icon1A.png");
 		button = new Sprite(iconD);
-		price = 1;
+		price = 3;
 		break;
 	case PURPLEB:
 		iconA = new Image("Resources/button/icon2A.png");
 		iconD = new Image("Resources/button/icon2D.png");
 		iconB = new Image("Resources/button/icon2B.png");
 		button = new Sprite(iconD);
-		price = 3;
+		price = 10;
 		break;
 	case BLUEB:
 		iconA = new Image("Resources/button/icon3A.png");
 		iconD = new Image("Resources/button/icon3D.png");
 		iconB = new Image("Resources/button/icon3B.png");
 		button = new Sprite(iconD);
-		price = 3;
+		price = 10;
 		break;
 	case YELLOWB:
 		iconB = new Image("Resources/button/icon4B.png");
 		iconA = new Image("Resources/button/icon4A.png");
 		iconD = new Image("Resources/button/icon4D.png");
 		button = new Sprite(iconD);
-		price = 4;
+		price = 20;
 		break;
 	case GREENB:
 		iconA = new Image("Resources/button/icon5A.png");
 		iconD = new Image("Resources/button/icon5D.png");
 		iconB = new Image("Resources/button/icon5B.png");
 		button = new Sprite(iconD);
-		price = 2;
+		price = 5;
 		break;
 	default:
 		iconB = new Image("Resources/button/icon1B.png");
@@ -105,6 +105,7 @@ void Button::Draw(){
 	button->Draw(x, y, Layer::FRONT - 0.001f);
 	Color white(1.0f, 1.0f, 1.0f, 1.0f);
 	string soulsPrice = std::to_string(price);
+	TowerDefense::placar->Spacing(40);
 	TowerDefense::placar->Draw(x + 8, y + 13, soulsPrice, white, Layer::FRONT - 0.002f, 0.15f);
 	
 }

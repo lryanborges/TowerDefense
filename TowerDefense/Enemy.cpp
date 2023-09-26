@@ -34,6 +34,7 @@ Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 		deathSize = 6;
 		lastFrameDeath = 21;
 		lastFrameAtack = 13;
+		life = 3;
 	}
 	if (enemyType == ALFACE) {
 		walkSize = 6;
@@ -41,6 +42,25 @@ Enemy::Enemy(TileSet* tset, uint enType = 0, uint nivel) {
 		deathSize = 6;
 		lastFrameDeath = 21;
 		lastFrameAtack = 13;
+		life = 7;
+	}
+	if (enemyType == CENOURA) {
+		life = 2;
+	}
+	if (enemyType == CHEIROVERDE) {
+		life = 1;
+	}
+	if (enemyType == NABO) {
+		life = 1;
+	}
+	if (enemyType == BROCOLIS) {
+		life = 4;
+	}
+	if (enemyType == MILHO) {
+		life = 3;
+	}
+	if (enemyType == CEBOLA) {
+		life = 2;
 	}
 	
 	animation = new Animation(tileset, 0.15f, true);
