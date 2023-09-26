@@ -8,6 +8,14 @@
 #include "Animation.h"
 #include "Mouse.h"
 #include "Hub.h"
+#include "Audio.h"
+
+enum SoundsIntro {
+	INTRO,
+	TOWERSET,
+	MONSTER,
+	MAIN,
+};
 
 enum ObjectType {
 	ENEMY,
@@ -33,6 +41,7 @@ private:
 	static Game* level;
 
 public:
+	static Audio * audios;
 	static Scene* scene;
 	static Mouse* mouse;
 	static Hub* hub;

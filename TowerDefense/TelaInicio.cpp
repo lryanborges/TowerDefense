@@ -1,9 +1,10 @@
 #include "TelaInicio.h"
 #include "TowerDefense.h"
-#include "Level1.h"
 
 void TelaInicio::Init()
 {
+	TowerDefense::audios->Play(INTRO, true);
+	
 	background = new Sprite("Resources/bg.png");
 	text = new Font("Resources/text.png");
 	text->Spacing(65);
@@ -18,8 +19,6 @@ void TelaInicio::Update(){
 			fm = 0;
 		}
 	}
-	if(window->KeyPress(VK_SPACE))
-		TowerDefense::NextLevel<Level1>();
 }
 
 void TelaInicio::Draw(){

@@ -10,7 +10,6 @@
 
 Scene* Level1::scene = nullptr;
 void Level1::Init() {
-
 	tilesetCenoura = new TileSet("Resources/cenoura.png", 40, 50, 8, 30);
     tilesetBatata = new TileSet("Resources/batata.png", 40, 50, 8, 30);
     tilesetCebola = new TileSet("Resources/cebola.png", 40, 50, 8, 30);
@@ -244,7 +243,6 @@ void Level1::Update() {
     if (window->KeyPress('2')) {
         TowerDefense::NextLevel<Level2>();
     }
-        TowerDefense::NextLevel<Level2>();
     else {
         scene->Update();
         scene->CollisionDetection();
