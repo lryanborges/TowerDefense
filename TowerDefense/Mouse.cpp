@@ -61,7 +61,12 @@ void Mouse::OnCollision(Object * obj) {
 	}
 
 	if (obj->Type() == BUTTON) {
-		state = PLENO;
+		if (Mouse::carrying) {
+			state = COLISAO;
+		}
+		else {
+			state = PLENO;
+		}
 	}
 
 	if (obj->Type() == GRASS) {

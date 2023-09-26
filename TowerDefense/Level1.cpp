@@ -33,13 +33,12 @@ void Level1::Init() {
     TowerDefense::scene = scene;
     scene->Add(TowerDefense::mouse, MOVING);
     scene->Add(TowerDefense::hub, STATIC);
+    TowerDefense::priest = new Priest();
     scene->Add(TowerDefense::priest, STATIC);
 
     if (TowerDefense::souls < 10) {
         TowerDefense::souls = 10;
     }
-
-    Priest::life = 10;
 
     Button* button1 = new Button(REDB);
     Button* button2 = new Button(PURPLEB);
@@ -271,7 +270,6 @@ void Level1::Update() {
 
     scene->Update();
     scene->CollisionDetection();
-    scene->DrawBBox();
 
     if (window->KeyPress('M') || Priest::life <= 0) {
         TowerDefense::audios->Stop(MAIN);

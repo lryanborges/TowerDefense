@@ -54,17 +54,10 @@ void Level2::Init() {
 	scene->Add(button4, STATIC);
 	scene->Add(button5, STATIC);
 
-	Enemy* brocolis = new Enemy(tilesetBrocolis, BROCOLIS, 2);
-	scene->Add(brocolis, MOVING);
-
-    Enemy* milho = new Enemy(tilesetMilho, MILHO, 2);
-    scene->Add(milho, MOVING);
-    milho->MoveTo(-50, window->CenterY() + 20);
-
 	rainTimerStarter = true;
 
     // ----------------------------------
-    //        Definição de rota
+    //        DefiniÃ§Ã£o de rota
     // ----------------------------------
     int posicaoX = -48;
     int posicaoY = 360;
@@ -184,11 +177,11 @@ void Level2::Init() {
     }
 
     // ------------------------------------------------------------------------------------
-    //                DEFINIÇÃO DOS DIRECTIONS POINTS PRA ESSA FASE
+    //                DEFINIÃ‡ÃƒO DOS DIRECTIONS POINTS PRA ESSA FASE
     // ------------------------------------------------------------------------------------
 
     DirectionPoint* point1 = new DirectionPoint(DOWN);
-    point1->MoveTo(window->CenterX() - 360, window->CenterY() + 20);    // -395 é bem no meio (do primeiro)
+    point1->MoveTo(window->CenterX() - 360, window->CenterY() + 20);    // -395 Ã© bem no meio (do primeiro)
     scene->Add(point1, STATIC);
 
     DirectionPoint* point2 = new DirectionPoint(RIGHT);
@@ -258,7 +251,7 @@ void Level2::Finalize() {
 void Level2::Update() {
 
 	// ----------------------------
-	// Ambientação da chuva
+	// AmbientaÃ§Ã£o da chuva
 	// ----------------------------
 
 	if (rainTimerStarter) {
@@ -268,7 +261,7 @@ void Level2::Update() {
 	else {
 		if (rainTimer.Elapsed(0.05)) {
 			Rain* rain = new Rain(tilesetRain, random(0, 2));
-			// é bom espalhar mais, definir mais intervalos mais fechados
+			// Ã© bom espalhar mais, definir mais intervalos mais fechados
 			rain->MoveTo(random(0, window->Width() + 500), 0);
 			scene->Add(rain, STATIC);
 
@@ -278,12 +271,63 @@ void Level2::Update() {
 	}
 
 	scene->Update();
-    scene->DrawBBox();
 	scene->CollisionDetection();
     if (window->KeyPress('M') || Priest::life <= 0) {
         TowerDefense::audios->Stop(LEVEL2);
         TowerDefense::NextLevel<TelaFinal>();
     }
+  
+    // ----------------------------------
+   //             Inimigos
+   // ----------------------------------
+
+
+    if (TowerDefense::spawnTimer.Elapsed(10.0)) {
+        int spawX = -50;
+        for (int i = 0; i < 10; i++) {
+            int num = random(0, 8);
+
+            TileSet* tlset = nullptr;
+
+            switch (num) {
+            case 0:
+                tlset = tilesetCenoura;
+                break;
+            case 1:
+                tlset = tilesetBatata;
+                break;
+            case 2:
+                tlset = tilesetCebola;
+                break;
+            case 3:
+                tlset = tilesetNabo;
+                break;
+            case 4:
+                tlset = tilesetBrocolis;
+                break;
+            case 5:
+                tlset = tilesetCheiroVerde;
+                break;
+            case 6:
+                tlset = tilesetMilho;
+                break;
+            case 7:
+                tlset = tilesetAlface;
+                break;
+            case 8:
+                tlset = tilesetCouveFlor;
+                break;
+            }
+
+            Enemy* enemy = new Enemy(tlset, num, 2);
+            enemy->MoveTo(spawX, window->CenterY() + 20);
+            spawX += -80;
+            scene->Add(enemy, MOVING);
+
+            TowerDefense::spawnTimer.Reset();
+        }
+    }
+
     if (window->KeyPress('V') || TowerDefense::pontos >= 100) {
         TowerDefense::audios->Stop(LEVEL2);
         TowerDefense::NextLevel<TelaVitoria>();
